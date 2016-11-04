@@ -1,0 +1,22 @@
+#container {
+  width: 700px;
+  position: absolute;
+  left: 30%;
+  border: 1px solid black;
+}
+
+#active {
+  display: inline-block;
+}
+
+#activePokemon {
+  position: absolute;
+  z-index: 10;
+  left: 205px;
+  top: 150px;
+  width: 150px;
+}
+
+#activePokemon img {
+  width: 100px;
+}
