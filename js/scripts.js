@@ -165,3 +165,51 @@ var cubone = {
   weakAgainst: "Grass",
   strongAgainst: "Electric"
 }
+
+
+$(function() {
+  var activePokemon;
+  $("#bulbasaur").click(function() {
+    activePokemon = bulbasaur;
+  })
+  $("#charmander").click(function() {
+    activePokemon = charmander;
+  })
+  $("#squirtle").click(function() {
+    activePokemon = squirtle;
+  })
+  $("#pikachu").click(function() {
+    activePokemon = pikachu;
+  })
+  $("#meowth").click(function() {
+    activePokemon = meowth;
+  })
+  $("#mew").click(function() {
+    activePokemon = mew;
+  })
+  $("#abra").click(function() {
+    activePokemon = abra;
+  })
+  $("#jigglypuff").click(function() {
+    activePokemon = jigglypuff;
+  })
+  $("#mankey").click(function() {
+    activePokemon = mankey;
+  })
+  $("#cubone").click(function() {
+    activePokemon = cubone;
+  })
+
+  $(".icon").click(function(){
+    console.log(activePokemon);
+    console.log(activePokemon.name);
+    $("#activePokemon").html("<img src='" + activePokemon.frontSprite + "'>");
+    $("#pokemonName").html(activePokemon.name);
+    $("#hp").html(activePokemon.hp);
+    $("#attack").html(activePokemon.attack);
+    $("#defense").html(activePokemon.defense);
+    $("#speed").html(activePokemon.speed);
+    $("#weakness").html(activePokemon.weakAgainst);
+    $("#resistance").html(activePokemon.strongAgainst);
+  })
+})
