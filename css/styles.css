@@ -1,22 +1,85 @@
-#container {
-  width: 700px;
-  position: absolute;
-  left: 30%;
-  border: 1px solid black;
+body {
+  background-color: white;
 }
 
-#active {
-  display: inline-block;
+#container {
+  position: absolute;
+}
+
+#leftSide {
+  position: absolute;
+  left: 100px;
+}
+
+#rightSide {
+  position: absolute;
+  left: 765px;
+}
+
+#center {
+position: absolute;
+left: 200px;
+top: 100px;
 }
 
 #activePokemon {
   position: absolute;
   z-index: 10;
   left: 205px;
-  top: 150px;
+  top: 0px;
   width: 150px;
 }
 
 #activePokemon img {
   width: 100px;
+}
+
+#bio {
+  position: absolute;
+  width: 400px;
+  border: 1px solid black;
+  border-radius: 10px;
+  left: 255px;
+  top: 280px;
+}
+
+#bio h2 {
+  text-align: center;
+}
+
+#statsLeft {
+  float: left;
+  padding: 10px;
+}
+
+#statsRight {
+  padding: 10px;
+  float: right;
+}
+
+.icon {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid black;
+  border-radius: 100%;
+  padding: 5px;
+  background-color: #334477;
+  height: 50px;
+  width: 50px;
+}
+
+.pushleft {
+  margin-left: -20px;
+}
+
+.pushfarleft {
+  margin-left: -35px;
+}
+
+.pushright {
+  margin-left: 20px;
+}
+
+.pushfarright {
+  margin-left: 35px;
 }

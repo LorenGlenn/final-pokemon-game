@@ -3,7 +3,7 @@
   <head>
     <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
     <script src="js/scripts.js" type="text/javascript"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
     <link href="css/styles.css" rel="stylesheet" type="text/css">
     <meta charset="utf-8">
     <title>Pokemon Battle!</title>
@@ -11,17 +11,40 @@
   <body>
     <div id="container">
       <div id="leftSide">
-        <img src="http://www.pokestadium.com/sprites/xy/bulbasaur.gif" class="icon">
+        <img src="http://www.pokestadium.com/sprites/xy/bulbasaur.gif" class="icon"><br>
+        <img src="http://www.pokestadium.com/sprites/xy/charmander.gif" class="icon pushleft"><br>
+        <img src="http://www.pokestadium.com/sprites/xy/squirtle.gif" class="icon pushfarleft"><br>
+        <img src="http://www.pokestadium.com/sprites/xy/pikachu.gif" class="icon pushleft"><br>
+        <img src="http://www.pokestadium.com/sprites/xy/meowth.gif" class="icon">
       </div>
-      <div id="active">
+      <div id="center">
         <img src="img/pokeball.png" alt="Pokeball">
         <div id="activePokemon">
           <img src="http://www.pokestadium.com/sprites/xy/bulbasaur.gif" alt="active pokemon">
         </div>
       </div>
       <div id="rightSide">
-        <img src="http://www.pokestadium.com/sprites/xy/bulbasaur.gif" class="icon">
+        <img src="http://www.pokestadium.com/sprites/xy/mew.gif" class="icon"><br>
+        <img src="http://www.pokestadium.com/sprites/xy/abra.gif" class="icon pushright"><br>
+        <img src="http://www.pokestadium.com/sprites/xy/jigglypuff.gif" class="icon pushfarright"><br>
+        <img src="http://www.pokestadium.com/sprites/xy/mankey.gif" class="icon pushright"><br>
+        <img src="http://www.pokestadium.com/sprites/xy/cubone.gif" class="icon">
+      </div>
+      <div id="bio">
+        <h2><span class="pokemonName">Bulbasaur</span></h2>
+        <p id="statsLeft">
+          HP: 100<br>
+          ATK: 100<br>
+          DEF: 100<br>
+          SPD: 100<br>
+        </p>
+        <p id="statsRight">
+          Weakness: weakness<br>
+          Resistance: resistance<br>
+          Moves: Leaf Storm, Mega Drain
+        </ul>
       </div>
     </div>
+
   </body>
 </html>
