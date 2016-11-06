@@ -107,3 +107,18 @@ top: 100px;
 .pushfarright {
   margin-left: 35px;
 }
+
+#selectedPokemonsP1{
+  float: left;
+}
+#selectedPokemonsP2{
+  float: right;
+}
+#addPokemon{
+  margin-top: 500px;
+  text-align: center;
+}
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}

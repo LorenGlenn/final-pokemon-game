@@ -1,3 +1,5 @@
+var activePokemon;
+
 var leafBlade = {
   name: "Leaf Blade",
   type: "Grass",
@@ -168,41 +170,16 @@ var cubone = {
 
 
 $(function() {
-  var activePokemon;
-  $("#bulbasaur").click(function() {
-    activePokemon = bulbasaur;
-  })
-  $("#charmander").click(function() {
-    activePokemon = charmander;
-  })
-  $("#squirtle").click(function() {
-    activePokemon = squirtle;
-  })
-  $("#pikachu").click(function() {
-    activePokemon = pikachu;
-  })
-  $("#meowth").click(function() {
-    activePokemon = meowth;
-  })
-  $("#mew").click(function() {
-    activePokemon = mew;
-  })
-  $("#abra").click(function() {
-    activePokemon = abra;
-  })
-  $("#jigglypuff").click(function() {
-    activePokemon = jigglypuff;
-  })
-  $("#mankey").click(function() {
-    activePokemon = mankey;
-  })
-  $("#cubone").click(function() {
-    activePokemon = cubone;
-  })
+
+  var p1SelectedPokemons=0;
+  var p2SelectedPokemons=0;
+  $("#pokeSelector img").click(function(){
+    activePokemon=eval($(this).attr("id"));
+  });
 
   $(".icon").click(function(){
-    console.log(activePokemon);
-    console.log(activePokemon.name);
+    // console.log(activePokemon);
+    // console.log(activePokemon.name);
     $("#activePokemon").html("<img src='" + activePokemon.frontSprite + "'>");
     $("#pokemonName").html(activePokemon.name);
     $("#hp").html(activePokemon.hp);
@@ -212,4 +189,10 @@ $(function() {
     $("#weakness").html(activePokemon.weakAgainst);
     $("#resistance").html(activePokemon.strongAgainst);
   })
+  $("#addPokemon").click(function(){
+    $("#selectedPokemonsP1").append("<img src='" + activePokemon.frontSprite + "'>")
+    console.log(("#"+activePokemon.name))
+    $(("#"+activePokemon.name).toLowerCase()).addClass("disabled");
+  });
+
 })
