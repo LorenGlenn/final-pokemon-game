@@ -41,15 +41,12 @@
 
       </div>
     </div>
+    <div id="gameInfo">
+      <h3>Game ID: <span id="gameid"></span></h3>
+      <h4>Status: <span id="whosTurn"></span></h4>
+      <h5>Player: <span id="player"></span></h5><br>
+    </div>
     <div id="container">
-      <div id="gameInfo">
-        <h3>Game ID: <span id="gameid"></span></h3>
-        <h6>Status:<span id="whosTurn"></span></h6>
-        <h6>Player: <span id="player"></span></h6>
-        <h6>Player1 turn: <span id="player1Turn"></span></h6>
-        <h6>Player2 turn: <span id="player2Turn"></span></h6>
-        <h6>Global turn: <span id="currentTurn"></span></h6>
-      </div>
       <div id="pokeSelector">
         <div id="leftSide">
           <img src="http://www.pokestadium.com/sprites/xy/bulbasaur.gif" class="icon" id="bulbasaur"><br>
@@ -88,7 +85,7 @@
           </span>
         </p>
       </div>
-      <div id="buttons">
+      <div id="buttons"><br>
         <div>
           <center><button type="button" name="button" class="btn btn-primary" id="addPokemon">Add pokemon</button></center>
         </div>
@@ -98,11 +95,9 @@
         <div id="selectedPokemonsP1">
           <h1>Player 2</h1>
         </div><br>
-        <button type="submit" id="battleReadyP1" class="readyButton disabled btn btn-primary">Player 1 Ready</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button type="submit" id="battleReadyP2" class="readyButton disabled btn btn-primary">Player 2 Ready</button>
+        <div id="battleReadyP1" class="readyButton disabled btn btn-primary">Player 1 Ready</div>
+        <div id="battleReadyP2" class="readyButton disabled btn btn-primary">Player 2 Ready</div>
       </div>
-      <div id="battleReadyP1" class="readyButton disabled btn btn-primary">Player 1 Ready</div>
-      <div id="battleReadyP2" class="readyButton disabled btn btn-primary">Player 2 Ready</div>
 
     </div>
 

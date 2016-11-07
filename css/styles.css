@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color: #FFF;
+  background-color: #DDEEFF;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -42,7 +42,14 @@ li {
 #container {
   position: absolute;
   left: 20%;
-  top: 10%;
+  top: 15%;
+
+}
+
+#gameInfo {
+  position: absolute;
+  left: 10px;
+  top: 10px;
 }
 
 #leftSide {
@@ -147,13 +154,11 @@ top: 100px;
 #selectedPokemonsP1{
   display: inline-block;
   margin: 10px;
-  border: 1px solid black;
   padding: 5px;
 }
 #selectedPokemonsP2{
   display: inline-block;
   margin: 10px;
-  border: 1px solid black;
   padding: 5px;
 }
 
@@ -168,7 +173,12 @@ top: 100px;
 
 #buttons {
   position: relative;
-  left: 260px;
+  left: 75%;
+}
+
+#readyButtons {
+  position: relative;
+  left: 50%;
 }
 
 .readyButton {
