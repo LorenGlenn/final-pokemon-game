@@ -116,7 +116,6 @@ $(function() {
       if(Game.state=="Battle"){
         displaySprite(0);
         attack("ember");
-        displaySprite(0);
         // $("").click(function(){
         //   attackName = $(this).val();
         //
@@ -143,14 +142,8 @@ function attack(attackName){
 function displaySprite(index){
 
   eval("Player"+playerNumber).currentPokemon = index;
-  $("#Player1Fighter").append("<img src='" + eval("Player"+playerNumber).pokemons[index].backSprite + "'><br>");
-  $("#Player1Fighter").append("name: "+eval("Player"+playerNumber).pokemons[index].name + "<br>");
-  $("#Player1Fighter").append("hp: "+eval("Player"+playerNumber).pokemons[index].hp);
-  $("#Player1Fighter").append("attack: "+eval("Player"+playerNumber).pokemons[index].attack);
-  $("#Player1Fighter").append("defense: "+eval("Player"+playerNumber).pokemons[index].defense);
-  $("#Player1Fighter").append("speed: "+eval("Player"+playerNumber).pokemons[index].speed);
-  $("#Player1Fighter").append("move1: "+eval("Player"+playerNumber).pokemons[index].moves[0].name);
-  $("#Player1Fighter").append("move2: "+eval("Player"+playerNumber).pokemons[index].moves[1].name);
+  $("#Player1Fighter").append("<img src='" + eval("Player"+playerNumber).pokemons[index].backSprite + "' width='150px'><br>");
+  $("#Player2Fighter").append("<img src='" + eval("Player"+mySign).pokemons[index].frontSprite + "' width='90px'><br>");
 }
 
  function publishPosition(player,pokemonChosen) {

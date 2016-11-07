@@ -184,16 +184,15 @@ top: 100px;
   margin: 10px;
 }
 
-<<<<<<< HEAD
 #battleContainer {
   display: none;
   position: absolute;
   background-color: white;
-  left: 10%;
+  left: 0;
   top: 10%;
   z-index: 20;
   height: 800px;
-  width: 80%;
+  width: 1200px;
 }
 
 #battle {
@@ -208,6 +207,12 @@ top: 100px;
   position: absolute;
   bottom: 20px;
   left: 75px;
+}
+
+#Player2Fighter {
+  position: absolute;
+  top: 300px;
+  right: 100px;
 }
 
 #attackMenu {
@@ -271,3 +276,8 @@ top: 100px;
   background-color: #456;
   border: 2px solid white;
   cursor: pointer;
+}
+
+#pokemonSprites button {
+  margin-left: 100px;
+}
