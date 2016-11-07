@@ -28,6 +28,69 @@ var heatWave = {
   description: "Burning wave of heat."
 }
 
+var bubble = {
+  name: "Bubble",
+  type: "Water",
+  power: 10,
+  description: "Lowers speed stat of defending Pokemon"
+}
+
+var waterfall = {
+  name: "Waterfall",
+  type: "Water",
+  power: 20,
+  description: "A powerful waterfall move"
+}
+
+var thunderwave = {
+  name: "Thunder Wave",
+  type: "Electric",
+  power: 10,
+  description: "An electric charge that paralyzes the opponent."
+}
+
+var electroball = {
+  name: "Electroball",
+  type: "Electric",
+  power: 20,
+  description: "A strong electric energy ball that is thrown at the opponent."
+}
+
+var screech = {
+  name: "Screech",
+  type: "Normal",
+  power: 10,
+  description: "A harsh scream that lowers the opponents defense."
+}
+
+var payday = {
+  name: "Pay Day",
+  type: "Normal",
+  power: 20,
+  description: "Meowth's signature attack that deals damage."
+}
+
+var psychic = {
+  name: "Psychic",
+  type: "Psychic",
+  power: 20,
+  description: "Deals strong psychic damage to the opponent"
+}
+
+var barrier = {
+  name: "Barrier",
+  type: "Psychic",
+  power: 0,
+  description: "Greatly increases defense stat"
+}
+
+var psyshock = {
+  name: "Barrier",
+  type: "Psychic",
+  power: 0,
+  description: "Greatly increases defense stat"
+}
+
 var bulbasaur = {
   name: "Bulbasaur",
   type: "Grass",
@@ -63,7 +126,7 @@ var squirtle = {
   attack: 60,
   defense: 100,
   speed: 60,
-  moves: [],
+  moves: [bubble, waterfall],
   backSprite: "http://www.pokestadium.com/sprites/xy/back/squirtle.gif",
   frontSprite: "http://www.pokestadium.com/sprites/xy/squirtle.gif",
   weakAgainst: "Electric",
@@ -77,7 +140,7 @@ var pikachu = {
   attack: 80,
   defense: 60,
   speed: 100,
-  moves: [],
+  moves: [thunderwave, electroball],
   backSprite: "http://www.pokestadium.com/sprites/xy/back/pikachu.gif",
   frontSprite: "http://www.pokestadium.com/sprites/xy/pikachu.gif",
   weakAgainst: "Ground",
@@ -91,7 +154,7 @@ var meowth = {
   attack: 70,
   defense: 60,
   speed: 90,
-  moves: [],
+  moves: [screech, payday],
   backSprite: "http://www.pokestadium.com/sprites/xy/back/meowth.gif",
   frontSprite: "http://www.pokestadium.com/sprites/xy/meowth.gif",
   weakAgainst: "Fighting",
@@ -105,7 +168,7 @@ var mew = {
   attack: 90,
   defense: 80,
   speed: 80,
-  moves: [],
+  moves: [psychic, barrier],
   backSprite: "http://www.pokestadium.com/sprites/xy/back/mew.gif",
   frontSprite: "http://www.pokestadium.com/sprites/xy/mew.gif",
   weakAgainst: "Normal",
@@ -119,7 +182,7 @@ var abra = {
   attack: 80,
   defense: 90,
   speed: 80,
-  moves: [],
+  moves: [psyshock, torment],
   backSprite: "http://www.pokestadium.com/sprites/xy/back/abra.gif",
   frontSprite: "http://www.pokestadium.com/sprites/xy/abra.gif",
   weakAgainst: "Normal",
