@@ -79,14 +79,12 @@
         <div>
           <center><button type="button" name="button" class="btn btn-primary" id="addPokemon">Add pokemon</button></center>
         </div>
-        <div id="selectedPokemonsP2">
+        <div id="selectedPokemonsP1">
           <h1>Player 1</h1>
         </div>
-        <div id="selectedPokemonsP1">
+        <div id="selectedPokemonsP2">
           <h1>Player 2</h1>
         </div><br>
-        <button type="submit" id="battleReadyP1" class="readyButton disabled btn btn-primary">Player 1 Ready</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button type="submit" id="battleReadyP2" class="readyButton disabled btn btn-primary">Player 2 Ready</button>
       </div>
       <div id="battleReadyP1" class="readyButton disabled btn btn-primary">Player 1 Ready</div>
       <div id="battleReadyP2" class="readyButton disabled btn btn-primary">Player 2 Ready</div>
@@ -94,7 +92,17 @@
     </div>
 
     <!--Battle DIV-->
-    <div>
+    <div id="battle">
+      <div class="container">
+        <div class="row">
+            <div class="col-md-6" id="Player1Fighter">
+
+            </div>
+            <div class="col-md-6" id="Player2Fighter">
+
+            </div>
+        </div>
+      </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
