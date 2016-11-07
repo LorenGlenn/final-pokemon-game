@@ -13,7 +13,6 @@ function getGameId(){ //Generate game ID
 $(function() {
   var gameId =  $('#gameId');
   var gameIdQuery = $('#gameIdQuery');
-  var tictactoe = $('#pokeSelector');
   var output = $('#output');
   var whosTurn = $('#whosTurn');
 
@@ -26,11 +25,6 @@ $(function() {
   var channel = 'pokebattle--'+ gameid;
   console.log('Channel: '+channel);
 
-  // modal to select new Game or join host
-  $('#myModal').modal({
-    backdrop: 'static',
-    keyboard: false
-  });
 
   // Button action to go to opponent's url
   $("#enterGameButton").click(function(event){
@@ -60,17 +54,23 @@ $(function() {
 
        if(m.uuid === uuid && m.action === 'join') {
           if(m.occupancy < 2) {
+            // modal to select new Game or join host
+            $('#myModal').modal({
+              backdrop: 'static',
+              keyboard: false
+            });
+
             $("#whosTurn").text('Waiting for your opponent...');
           } else if(m.occupancy === 2) {
             mySign = '2';
           } else if (m.occupancy > 2) {
             alert('This game already have two players!');
-            tictactoe.className = 'disabled';
+            $("#pokeSelector").addClass("disabled");
           }
         }
 
        if(m.occupancy === 2) {
-         tictactoe.className = '';
+         $("#pokeSelector").removeClass("disabled");
          console.log("Start the game!")
          startNewGame(mySign);
        }
@@ -83,15 +83,23 @@ $(function() {
      },
      callback: function(m) {
        changeTurn(m.player);
-
+       (turn==1) ? Player1.turn++ : Player2.turn++;
+       $("#player1Turn").text(Player1.turn);
+       $("#player2Turn").text(Player2.turn);
+       console.log("received " + m.pokemon)
+       $(("#"+m.pokemon).toLowerCase()).addClass("disabled");
+       (m.pokemon) ? eval("Player"+turn).pokemons.push(m.pokemon.toLowerCase()): console.log("got squat");
+      //  console.log("player is is: "+ turn + " turn is: "+ Game.currentTurn+ " Players pokemon: "+ eval("Player"+turn).pokemons+ " current pokemon to add: "+ eval(eval("Player"+turn).pokemons[Game.currentTurn-2]))
+       (Game.currentTurn>1 && turn==1) ? $("#selectedPokemonsP"+turn).append("<img src='" + eval(eval("Player"+turn).pokemons[Player1.turn-2]).frontSprite + "'>") : console.log("wont append the pokemon1");
+       (Game.currentTurn>1 && turn==2) ? $("#selectedPokemonsP"+turn).append("<img src='" + eval(eval("Player"+turn).pokemons[Player2.turn-2]).frontSprite + "'>") : console.log("wont append the pokemon2");
      },
    });
 
 
-   function publishPosition(player) {
+   function publishPosition(player,pokemonChosen) {
      pubnub.publish({
        channel: channel,
-       message: {player: player},
+       message: {player: player, pokemon: pokemonChosen},
        callback: function(m){
          console.log(m);
        }
@@ -105,10 +113,24 @@ $(function() {
     }
 
     function changeTurn(player) {
+        Game.currentTurn++;
         turn = (turn === '1') ? '2' : '1';
         console.log("changing turns, "+ turn);
         $("#whosTurn").text((turn === mySign) ? 'Your turn' : 'Your opponent\'s turn');
         (turn==mySign) ? $("#pokeSelector").removeClass("disabled") : $("#pokeSelector").addClass("disabled");
+        $("#currentTurn").text(Game.currentTurn);
+      }
+
+      // add pokemons
+      $("#addPokemon").click(function(){
+        console.log(("#"+activePokemon.name))
+        $(("#"+activePokemon.name).toLowerCase()).addClass("disabled");
+        set();
+
+      });
+      function set() {
+        if (turn !== mySign) return;
+        publishPosition(mySign,activePokemon.name);
 
       }
 })

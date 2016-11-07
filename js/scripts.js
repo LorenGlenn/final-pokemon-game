@@ -168,9 +168,22 @@ var cubone = {
   strongAgainst: "Electric"
 }
 
+var Player1 = {
+  pokemons : [],
+  turn:0
+}
+
+var Player2 = {
+  pokemons :[],
+  turn:0
+
+}
+var Game = {
+  currentTurn:-1
+}
 
 $(function() {
-
+  activePokemon="cubone";
   var p1SelectedPokemons=0;
   var p2SelectedPokemons=0;
   $("#pokeSelector img").click(function(){
@@ -189,10 +202,6 @@ $(function() {
     $("#weakness").html(activePokemon.weakAgainst);
     $("#resistance").html(activePokemon.strongAgainst);
   })
-  $("#addPokemon").click(function(){
-    $("#selectedPokemonsP1").append("<img src='" + activePokemon.frontSprite + "'>")
-    console.log(("#"+activePokemon.name))
-    $(("#"+activePokemon.name).toLowerCase()).addClass("disabled");
-  });
+
 
 })

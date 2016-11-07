@@ -122,3 +122,10 @@ top: 100px;
   pointer-events: none;
   opacity: 0.5;
 }
+
+#selectedPokemonsP1{
+  border: 2px solid red;
+}
+#selectedPokemonsP2{
+  border: 2px solid blue;
+}
