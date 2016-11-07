@@ -102,15 +102,31 @@
     </div>
 
     <!--Battle DIV-->
-    <div id="battle">
-      <div class="container">
-        <div class="row">
-            <div class="col-md-6" id="Player1Fighter">
-
-            </div>
-            <div class="col-md-6" id="Player2Fighter">
-
-            </div>
+    <div id="battleContainer">
+      <div id="battle">
+        <div id="Player1Fighter">
+        </div>
+      </div>
+      <div id="attackMenu">
+        <div id="attacks col-sm-6">
+          <div id="move1" class="col-sm-3 attack">
+            <p><strong><span class="move1Name">Giga Drain</span></strong></p>
+            <p><strong>Description:</strong> <span class="move1Description">User gains half the HP inflicted on opponent.</span></p>
+            <p><strong>Power:</strong> <span class="move1Power">10</span></p>
+          </div>
+          <div id="move2" class="col-sm-3 attack">
+            <p><strong><span class="move2Name">Leaf Blade</span></strong></p>
+            <p><strong>Description:</strong> <span class="move2Description">A leaf attack</span></p>
+            <p><strong>Power:</strong> <span class="move2Power">20</span></p>
+          </div>
+        </div>
+        <div id="options col-sm-6">
+          <div id="pokemonSprites">
+            <span id="pokemonOption1"> <img src="http://www.pokestadium.com/sprites/xy/mew.gif"></span>
+            <span id="pokemonOption2"> <img src="http://www.pokestadium.com/sprites/xy/jigglypuff.gif"></span>
+            <span id="pokemonOption3"><img src="http://www.pokestadium.com/sprites/xy/abra.gif"></span>
+            <button type="click" class="btn-success">Forfeit!</button>
+          </div>
         </div>
       </div>
     </div>

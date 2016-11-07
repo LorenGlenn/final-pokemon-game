@@ -120,7 +120,7 @@ $(function() {
    });
 
 function displaySprite(index){
-  $("#Player"+mySign+"Fighter").append("<img src='" + eval("Player"+mySign).pokemons[index].backSprite + "'>")
+  $("#Player1Fighter").append("<img src='" + eval("Player"+mySign).pokemons[index].backSprite + "' width='150px'>")
 }
 
  function publishPosition(player,pokemonChosen) {
