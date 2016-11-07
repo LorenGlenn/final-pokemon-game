@@ -3,7 +3,7 @@
 }
 
 body {
-  background-color: #FFF;
+  background-color: #DDEEFF;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -12,17 +12,44 @@ li {
   padding-left: 0;
 }
 
-.landing {
-  height:800px;
+#myModal {
+  height:100%;
   width: 100%;
   position: absolute;
-  background-color: #FFF;
+  background: #4b6cb7; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #4b6cb7 , #182848); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #4b6cb7 , #182848); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  text-align: center;
+  padding: 40px;
+  padding-top: 300px;
+}
+
+#myModal h4 {
+  color: #E5E500;
+}
+
+#myModal h1 {
+  color: #E5E500;
+  font-family: "Freckle Face", cursive;
+  font-size: 4em;
+  text-shadow: 4px 4px 0px black;
+}
+
+.modal-content {
+  padding: 20px;
 }
 
 #container {
   position: absolute;
   left: 20%;
-  top: 10%;
+  top: 15%;
+
+}
+
+#gameInfo {
+  position: absolute;
+  left: 10px;
+  top: 10px;
 }
 
 #leftSide {
@@ -127,13 +154,11 @@ top: 100px;
 #selectedPokemonsP1{
   display: inline-block;
   margin: 10px;
-  border: 1px solid black;
   padding: 5px;
 }
 #selectedPokemonsP2{
   display: inline-block;
   margin: 10px;
-  border: 1px solid black;
   padding: 5px;
 }
 
@@ -148,7 +173,12 @@ top: 100px;
 
 #buttons {
   position: relative;
-  left: 260px;
+  left: 75%;
+}
+
+#readyButtons {
+  position: relative;
+  left: 50%;
 }
 
 .readyButton {

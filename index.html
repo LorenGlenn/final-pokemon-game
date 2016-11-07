@@ -9,34 +9,44 @@
   </head>
   <body>
     <div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <h1>Pokemon Battle</h1>
       <div class="modal-dialog modal-lg">
-        <div class="modal-content landing">
+        <div class="modal-content">
           <br>
-          <center>
-            <form id="getID" class="form-inline">
-              <div class="form-group">
-                <label for="exampleInputName1">Game Id</label>
-                <input type="number" class="form-control" id="inputGameId" placeholder="Enter Game ID">
-              </div>
-              <button type="submit" id="enterGameButton" class="btn btn-primary">Enter game!</button>
-            </form>
-            <br>
-              <form id="newGame" class="form-inline">
-                <button type="submit" id="createGameButton" class="btn btn-primary" data-dismiss="modal">Create new game</button>
-              </form>
-              </center>
+          <form id="getID" class="form-inline">
+            <div class="form-group">
+              <label for="exampleInputName1">Game Id</label>
+              <input type="number" class="form-control" id="inputGameId" placeholder="Enter Game ID">
+            </div>
+            <button type="submit" id="enterGameButton" class="btn btn-primary">Enter game!</button>
+          </form>
+          <br>
+          <form id="newGame" class="form-inline">
+            <button type="submit" id="createGameButton" class="btn btn-primary" data-dismiss="modal">Create new game</button>
+          </form>
         </div>
       </div>
+      <h4> Battle Simulator Featuring 10 Classic Characters</h4>
+      <div id="landingSprites">
+        <img src="http://www.pokestadium.com/sprites/xy/bulbasaur.gif" alt="bulbasaur">
+        <img src="http://www.pokestadium.com/sprites/xy/charmander.gif" alt="charmander">
+        <img src="http://www.pokestadium.com/sprites/xy/squirtle.gif" alt="squirtle">
+        <img src="http://www.pokestadium.com/sprites/xy/pikachu.gif" alt="pikachu">
+        <img src="http://www.pokestadium.com/sprites/xy/meowth.gif" alt="meowth">
+        <img src="http://www.pokestadium.com/sprites/xy/mew.gif" alt="mew">
+        <img src="http://www.pokestadium.com/sprites/xy/abra.gif" alt="abra">
+        <img src="http://www.pokestadium.com/sprites/xy/jigglypuff.gif" alt="jigglypuff">
+        <img src="http://www.pokestadium.com/sprites/xy/mankey.gif" alt="mankey">
+        <img src="http://www.pokestadium.com/sprites/xy/cubone.gif" alt="cubone">
+
+      </div>
+    </div>
+    <div id="gameInfo">
+      <h3>Game ID: <span id="gameid"></span></h3>
+      <h4>Status: <span id="whosTurn"></span></h4>
+      <h5>Player: <span id="player"></span></h5><br>
     </div>
     <div id="container">
-      <div id="gameInfo">
-        <h3>Game ID: <span id="gameid"></span></h3>
-        <h6>Status:<span id="whosTurn"></span></h6>
-        <h6>Player: <span id="player"></span></h6>
-        <h6>Player1 turn: <span id="player1Turn"></span></h6>
-        <h6>Player2 turn: <span id="player2Turn"></span></h6>
-        <h6>Global turn: <span id="currentTurn"></span></h6>
-      </div>
       <div id="pokeSelector">
         <div id="leftSide">
           <img src="http://www.pokestadium.com/sprites/xy/bulbasaur.gif" class="icon" id="bulbasaur"><br>
@@ -75,7 +85,7 @@
           </span>
         </p>
       </div>
-      <div id="buttons">
+      <div id="buttons"><br>
         <div>
           <center><button type="button" name="button" class="btn btn-primary" id="addPokemon">Add pokemon</button></center>
         </div>
@@ -85,9 +95,9 @@
         <div id="selectedPokemonsP2">
           <h1>Player 2</h1>
         </div><br>
+        <div id="battleReadyP1" class="readyButton disabled btn btn-primary">Player 1 Ready</div>
+        <div id="battleReadyP2" class="readyButton disabled btn btn-primary">Player 2 Ready</div>
       </div>
-      <div id="battleReadyP1" class="readyButton disabled btn btn-primary">Player 1 Ready</div>
-      <div id="battleReadyP2" class="readyButton disabled btn btn-primary">Player 2 Ready</div>
 
     </div>
 

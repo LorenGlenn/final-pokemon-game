@@ -77,7 +77,7 @@ $(function() {
          console.log("Start the game!")
          startNewGame(mySign);
        }
-       (mySign==1)? $('#player').text("2"):$('#player').text("1");
+       (mySign==1)? $('#player').text("2"):$('#player').text("1");3
        // Presence Stuff
        if(document.querySelector('.presence')) {
          showPresenceExamples(m);

@@ -288,7 +288,6 @@ var Player1 = {
 var Player2 = {
   pokemons :[],
   turn:0,
-
 }
 var Game = {
   currentTurn:-1,
