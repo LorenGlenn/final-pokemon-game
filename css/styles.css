@@ -12,6 +12,13 @@ li {
   padding-left: 0;
 }
 
+.landing {
+  height:800px;
+  width: 100%;
+  position: absolute;
+  background-color: #FFF;
+}
+
 #container {
   position: absolute;
   left: 20%;
@@ -118,11 +125,18 @@ top: 100px;
 }
 
 #selectedPokemonsP1{
-  float: left;
+  display: inline-block;
+  margin: 10px;
+  border: 1px solid black;
+  padding: 5px;
 }
 #selectedPokemonsP2{
-  float: right;
+  display: inline-block;
+  margin: 10px;
+  border: 1px solid black;
+  padding: 5px;
 }
+
 #addPokemon{
   margin-top: 500px;
   text-align: center;
@@ -132,9 +146,11 @@ top: 100px;
   opacity: 0.5;
 }
 
-#selectedPokemonsP1{
-  border: 2px solid red;
+#buttons {
+  position: relative;
+  left: 260px;
 }
-#selectedPokemonsP2{
-  border: 2px solid blue;
+
+.readyButton {
+  margin: 10px;
 }

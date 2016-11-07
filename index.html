@@ -8,28 +8,28 @@
     <title>Pokemon Battle!</title>
   </head>
   <body>
-    <div id="container">
-      <div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
+    <div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content landing">
+          <br>
+          <center>
+            <form id="getID" class="form-inline">
+              <div class="form-group">
+                <label for="exampleInputName1">Game Id</label>
+                <input type="number" class="form-control" id="inputGameId" placeholder="Enter Game ID">
+              </div>
+              <button type="submit" id="enterGameButton" class="btn btn-primary">Enter game!</button>
+            </form>
             <br>
-            <center>
-              <form id="getID" class="form-inline">
-                <div class="form-group">
-                  <label for="exampleInputName1">Game Id</label>
-                  <input type="number" class="form-control" id="inputGameId" placeholder="Enter Game ID">
-                </div>
-                <button type="submit" id="enterGameButton" class="btn btn-primary">Enter game!</button>
+              <form id="newGame" class="form-inline">
+                <button type="submit" id="createGameButton" class="btn btn-primary" data-dismiss="modal">Create new game</button>
               </form>
+              </center>
               <br>
-                <form id="newGame" class="form-inline">
-                  <button type="submit" id="createGameButton" class="btn btn-primary" data-dismiss="modal">Create new game</button>
-                </form>
-                </center>
-                <br>
-          </div>
         </div>
       </div>
+    </div>
+    <div id="container">
       <div id="gameInfo">
         <h3>Game ID: <span id="gameid"></span></h3>
         <h6>Status:<span id="whosTurn"></span></h6>
@@ -76,16 +76,19 @@
           </span>
         </p>
       </div>
-      <div>
-        <center><button type="button" name="button" class="btn btn-primary" id="addPokemon">Add pokemon</button></center>
+      <div id="buttons">
+        <div>
+          <center><button type="button" name="button" class="btn btn-primary" id="addPokemon">Add pokemon</button></center>
+        </div>
+        <div id="selectedPokemonsP2">
+          <h1>Player 1</h1>
+        </div>
+        <div id="selectedPokemonsP1">
+          <h1>Player 2</h1>
+        </div><br>
+        <button type="submit" id="battleReadyP1" class="readyButton disabled btn btn-primary">Player 1 Ready</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="submit" id="battleReadyP2" class="readyButton disabled btn btn-primary">Player 2 Ready</button>
       </div>
-      <div id="selectedPokemonsP2">
-        <h1>Player 1</h1>
-      </div>
-      <div id="selectedPokemonsP1">
-        <h1>Player 2</h1>
-      </div><br>
-      <button type="submit" id="battleReady" class="btn btn-primary">Ready</button>
     </div>
 
     <!--Battle DIV-->
