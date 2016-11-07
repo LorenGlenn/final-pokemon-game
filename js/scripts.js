@@ -182,7 +182,7 @@ var abra = {
   attack: 80,
   defense: 90,
   speed: 80,
-  moves: [psyshock, torment],
+  moves: [psyshock],
   backSprite: "http://www.pokestadium.com/sprites/xy/back/abra.gif",
   frontSprite: "http://www.pokestadium.com/sprites/xy/abra.gif",
   weakAgainst: "Normal",
@@ -233,12 +233,14 @@ var cubone = {
 
 var Player1 = {
   pokemons : [],
-  turn:0
+  turn:0,
+  ready:0
 }
 
 var Player2 = {
   pokemons :[],
-  turn:0
+  turn:0,
+  ready:0
 
 }
 var Game = {

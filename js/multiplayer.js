@@ -92,14 +92,26 @@ $(function() {
          (m.pokemon) ? eval("Player"+turn).pokemons.push(m.pokemon): console.log("got squat");
          (Game.currentTurn>1 && turn==1) ? $("#selectedPokemonsP"+turn).append("<img src='" + eval(eval("Player"+turn).pokemons[Player1.turn-2]).frontSprite + "'>") : console.log("wont append the pokemon1");
          (Game.currentTurn>1 && turn==2) ? $("#selectedPokemonsP"+turn).append("<img src='" + eval(eval("Player"+turn).pokemons[Player2.turn-2]).frontSprite + "'>") : console.log("wont append the pokemon2");
-         if(Player1.pokemons.length == 3 && Player2.pokemons.length == 3) {
+         if(Player1.pokemons.length == 3 ) {
+           $("#battleReadyP1").removeClass("btn-primary");
+           $("#battleReadyP1").addClass("btn-success");
+           checkReady();
+         }
+         if(Player2.pokemons.length == 3 ) {
            $("#pokeSelector").addClass("disabled");
-           $("#battleReady").addClass("");
+           $("#battleReadyP2").removeClass("btn-primary");
+           $("#battleReadyP2").addClass("btn-success");
+           checkReady();
          }
        }
      },
    });
 
+   function checkReady(){
+     if($('#battleReadyP1').hasClass("btn-success") && $('#battleReadyP2').hasClass("btn-success")) {
+       $('#pokeSelector').hide();
+     }
+   }
 
    function publishPosition(player,pokemonChosen) {
      pubnub.publish({
