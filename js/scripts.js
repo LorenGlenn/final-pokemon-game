@@ -201,6 +201,10 @@ $(function() {
     $("#speed").html(activePokemon.speed);
     $("#weakness").html(activePokemon.weakAgainst);
     $("#resistance").html(activePokemon.strongAgainst);
+    $("#moves").empty();
+    activePokemon.moves.forEach(function(move) {
+      $("#moves").append("<li>" + move.name + "</li>")
+    })
   })
 
 
