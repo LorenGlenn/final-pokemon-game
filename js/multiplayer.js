@@ -86,12 +86,17 @@ $(function() {
        (turn==1) ? Player1.turn++ : Player2.turn++;
        $("#player1Turn").text(Player1.turn);
        $("#player2Turn").text(Player2.turn);
-       console.log("received " + m.pokemon)
-       $(("#"+m.pokemon).toLowerCase()).addClass("disabled");
-       (m.pokemon) ? eval("Player"+turn).pokemons.push(m.pokemon.toLowerCase()): console.log("got squat");
-      //  console.log("player is is: "+ turn + " turn is: "+ Game.currentTurn+ " Players pokemon: "+ eval("Player"+turn).pokemons+ " current pokemon to add: "+ eval(eval("Player"+turn).pokemons[Game.currentTurn-2]))
-       (Game.currentTurn>1 && turn==1) ? $("#selectedPokemonsP"+turn).append("<img src='" + eval(eval("Player"+turn).pokemons[Player1.turn-2]).frontSprite + "'>") : console.log("wont append the pokemon1");
-       (Game.currentTurn>1 && turn==2) ? $("#selectedPokemonsP"+turn).append("<img src='" + eval(eval("Player"+turn).pokemons[Player2.turn-2]).frontSprite + "'>") : console.log("wont append the pokemon2");
+       if(Game.currentTurn>1){
+         console.log("received " + m.pokemon.name)
+         $(("#"+m.pokemon.name).toLowerCase()).addClass("disabled");
+         (m.pokemon) ? eval("Player"+turn).pokemons.push(m.pokemon): console.log("got squat");
+         (Game.currentTurn>1 && turn==1) ? $("#selectedPokemonsP"+turn).append("<img src='" + eval(eval("Player"+turn).pokemons[Player1.turn-2]).frontSprite + "'>") : console.log("wont append the pokemon1");
+         (Game.currentTurn>1 && turn==2) ? $("#selectedPokemonsP"+turn).append("<img src='" + eval(eval("Player"+turn).pokemons[Player2.turn-2]).frontSprite + "'>") : console.log("wont append the pokemon2");
+         if(Player1.pokemons.length == 3 && Player2.pokemons.length == 3) {
+           $("#pokeSelector").addClass("disabled");
+           $("#battleReady").addClass("");
+         }
+       }
      },
    });
 
@@ -130,7 +135,7 @@ $(function() {
       });
       function set() {
         if (turn !== mySign) return;
-        publishPosition(mySign,activePokemon.name);
+        publishPosition(mySign,activePokemon);
 
       }
 })
