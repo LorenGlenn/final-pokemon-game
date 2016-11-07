@@ -184,6 +184,7 @@ top: 100px;
   margin: 10px;
 }
 
+<<<<<<< HEAD
 #battleContainer {
   display: none;
   position: absolute;
@@ -270,4 +271,3 @@ top: 100px;
   background-color: #456;
   border: 2px solid white;
   cursor: pointer;
-}

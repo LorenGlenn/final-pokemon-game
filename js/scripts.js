@@ -283,15 +283,19 @@ var cubone = {
 var Player1 = {
   pokemons : [],
   turn:0,
+  isPlayerTurn: true,
+  currentPokemon: 0
 }
 
 var Player2 = {
   pokemons :[],
   turn:0,
+  isPlayerTurn: false,
+  currentPokemon: 0
 }
 var Game = {
   currentTurn:-1,
-  state:"Menu",
+  state:"Menu"
 }
 
 $(function() {
