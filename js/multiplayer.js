@@ -1,6 +1,6 @@
 var uuid = PUBNUB.uuid();
-var turn=1;
-var mySign = '1';
+var turn=2;
+var mySign = '2';
 function getGameId(){ //Generate game ID
     if(window.location.search.substring(1).split('?')[0].split('=')[0] !== 'id') {
       return null;
@@ -65,7 +65,7 @@ $(function() {
 
             $("#whosTurn").text('Waiting for your opponent...');
           } else if(m.occupancy === 2) {
-            mySign = '2';
+            mySign = '1';
           } else if (m.occupancy > 2) {
             alert('This game already have two players!');
             $("#pokeSelector").addClass("disabled");
@@ -77,7 +77,7 @@ $(function() {
          console.log("Start the game!")
          startNewGame(mySign);
        }
-       $('#player').text(mySign);
+       (mySign==1)? $('#player').text("2"):$('#player').text("1");
        // Presence Stuff
        if(document.querySelector('.presence')) {
          showPresenceExamples(m);
@@ -93,7 +93,9 @@ $(function() {
          if(Game.currentTurn>1){
            console.log("received " + m.pokemon.name)
            $(("#"+m.pokemon.name).toLowerCase()).addClass("disabled");
+
            (m.pokemon) ? eval("Player"+turn).pokemons.push(m.pokemon): console.log("got squat");
+
            (Game.currentTurn>1 && turn==1) ? $("#selectedPokemonsP"+turn).append("<img src='" + eval(eval("Player"+turn).pokemons[Player1.turn-2]).frontSprite + "'>") : console.log("wont append the pokemon1");
            (Game.currentTurn>1 && turn==2) ? $("#selectedPokemonsP"+turn).append("<img src='" + eval(eval("Player"+turn).pokemons[Player2.turn-2]).frontSprite + "'>") : console.log("wont append the pokemon2");
            if(Player1.pokemons.length == 3 ) {
@@ -153,7 +155,8 @@ function displaySprite(index){
 
     function checkReady(){
       if($('#battleReadyP1').hasClass("btn-success") && $('#battleReadyP2').hasClass("btn-success")) {
-        $('#pokeSelector').hide();
+        $('#container').hide();
+        $("#battleContainer").show();
         Game.state="Battle";
       }
     }
