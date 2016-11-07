@@ -87,8 +87,57 @@ var barrier = {
 var psyshock = {
   name: "Barrier",
   type: "Psychic",
-  power: 0,
-  description: "Greatly increases defense stat"
+  power: 20,
+  description: "Powerful psychic attack"
+}
+
+var torment = {
+  name: "Torment",
+  type: "Psychic",
+  power: 10,
+  description: "Lowers target's attack stat"
+}
+
+var sing = {
+  name: "Sing",
+  type: "Normal",
+  power: 10,
+  description: "Puts opponent to sleep"
+}
+
+var rollout = {
+  name: "Rollout",
+  type: "Normal",
+  power: 20,
+  description: "Attack move that deals heavy damage"
+}
+
+var karatechop = {
+  name: "Karate Chop",
+  type: "Fighting",
+  power: 20,
+  description: "Attack move that deals damage"
+}
+
+var closecombat = {
+  name: "Close Combat",
+  type: "Fighting",
+  power: 30,
+  description: "Deals very heavy damage but user hurts self"
+}
+
+var bonerush = {
+  name: "Bone Rush",
+  type: "Ground",
+  power: 10,
+  description: "Increases user speed and deals small amount of damage"
+}
+
+var earthquake = {
+  name: "Earthquake",
+  type: "Ground",
+  power: 20,
+  description: "Ground move that deals heavy damage to opponent"
 }
 
 var bulbasaur = {
@@ -196,7 +245,7 @@ var jigglypuff = {
   attack: 40,
   defense: 80,
   speed: 60,
-  moves: [],
+  moves: [sing, rollout],
   backSprite: "http://www.pokestadium.com/sprites/xy/back/jigglypuff.gif",
   frontSprite: "http://www.pokestadium.com/sprites/xy/jigglypuff.gif",
   weakAgainst: "Fighting",
@@ -210,7 +259,7 @@ var mankey = {
   attack: 120,
   defense: 50,
   speed: 60,
-  moves: [],
+  moves: [karatechop, closecombat],
   backSprite: "http://www.pokestadium.com/sprites/xy/back/mankey.gif",
   frontSprite: "http://www.pokestadium.com/sprites/xy/mankey.gif",
   weakAgainst: "Psychic",
@@ -224,7 +273,7 @@ var cubone = {
   attack: 90,
   defense: 110,
   speed: 40,
-  moves: [],
+  moves: [bonerush, earthquake],
   backSprite: "http://www.pokestadium.com/sprites/xy/back/cubone.gif",
   frontSprite: "http://www.pokestadium.com/sprites/xy/cubone.gif",
   weakAgainst: "Grass",
