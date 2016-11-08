@@ -231,7 +231,7 @@ var abra = {
   attack: 80,
   defense: 90,
   speed: 80,
-  moves: [psyshock],
+  moves: [psyshock, torment],
   backSprite: "http://www.pokestadium.com/sprites/xy/back/abra.gif",
   frontSprite: "http://www.pokestadium.com/sprites/xy/abra.gif",
   weakAgainst: "Normal",
@@ -287,7 +287,7 @@ var Player1 = {
   turn:0,
   isPlayerTurn: true,
   currentPokemon: 0,
-  currentAction: false
+  currentAction: 0
 }
 
 var Player2 = {
@@ -295,12 +295,13 @@ var Player2 = {
   turn:0,
   isPlayerTurn: false,
   currentPokemon: 0,
-  currentAction: false
+  currentAction: 0
 }
 var Game = {
   currentTurn:-1,
   state:"Menu",
-  attacks:[]
+  player1Attack:0,
+  player2Attack:0
 }
 
 $(function() {

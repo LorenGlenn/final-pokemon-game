@@ -41,13 +41,8 @@ li {
 
 #container {
   position: absolute;
-<<<<<<< HEAD
-  left: 20%;
-  top: 15%;
-=======
   left: 10%;
   top: 200px;
->>>>>>> 17f104dbf5231d176e7787caa180e6a9935ae98f
 }
 
 #gameInfo {
@@ -58,43 +53,25 @@ li {
 
 #leftSide {
   position: absolute;
-<<<<<<< HEAD
-  left: 100px;
-=======
   left: 20%;
->>>>>>> 17f104dbf5231d176e7787caa180e6a9935ae98f
 }
 
 #rightSide {
   position: absolute;
-<<<<<<< HEAD
-  left: 765px;
-=======
   left: 235%;
->>>>>>> 17f104dbf5231d176e7787caa180e6a9935ae98f
 }
 
 #center {
 position: absolute;
-<<<<<<< HEAD
-left: 200px;
-top: 100px;
-=======
 left: 60%;
 top: 15%;
->>>>>>> 17f104dbf5231d176e7787caa180e6a9935ae98f
 }
 
 #activePokemon {
   position: absolute;
   z-index: 10;
-<<<<<<< HEAD
-  left: 205px;
-  top: 0px;
-=======
   left: 40%;
   top: 0;
->>>>>>> 17f104dbf5231d176e7787caa180e6a9935ae98f
   width: 150px;
 }
 
@@ -107,13 +84,8 @@ top: 15%;
   width: 400px;
   border: 5px inset grey;
   border-radius: 10px;
-<<<<<<< HEAD
-  left: 255px;
-  top: 280px;
-=======
   left: 77%;
   top: 40%;
->>>>>>> 17f104dbf5231d176e7787caa180e6a9935ae98f
   padding: 10px;
   box-sizing: border-box;
   font-size: 1.1em;
@@ -180,20 +152,11 @@ top: 15%;
 
 #selectedPokemonsP1{
   display: inline-block;
-<<<<<<< HEAD
-  margin: 10px;
-  padding: 5px;
-}
-#selectedPokemonsP2{
-  display: inline-block;
-  margin: 10px;
-  padding: 5px;
-=======
+
 }
 #selectedPokemonsP2{
   display: inline-block;
 
->>>>>>> 17f104dbf5231d176e7787caa180e6a9935ae98f
 }
 
 #addPokemon{
@@ -207,11 +170,7 @@ top: 15%;
 
 #buttons {
   position: relative;
-<<<<<<< HEAD
-  left: 75%;
-=======
   left: 93%;
->>>>>>> 17f104dbf5231d176e7787caa180e6a9935ae98f
 }
 
 #readyButtons {
@@ -228,29 +187,18 @@ top: 15%;
   position: absolute;
   background-color: white;
   left: 0;
-<<<<<<< HEAD
-  top: 10%;
-  z-index: 20;
-  height: 800px;
-  width: 1200px;
-  font-family: 'VT323', monospace;
-=======
   top: 200px;
   z-index: 20;
   height: 800px;
   width: 1200px;
->>>>>>> 17f104dbf5231d176e7787caa180e6a9935ae98f
   font-size: 1.1em;
   letter-spacing: 1px;
 }
 
-<<<<<<< HEAD
-=======
 .progress {
   font-family: 'VT323', monospace;
 }
 
->>>>>>> 17f104dbf5231d176e7787caa180e6a9935ae98f
 #battle {
   background-image: url("../img/battlebg.png");
   background-size: cover;
@@ -316,11 +264,7 @@ top: 15%;
 
 #pokemonSprites {
   margin-left:60%;
-<<<<<<< HEAD
-  margin-top: 50px;
-=======
   margin-top: 20px;
->>>>>>> 17f104dbf5231d176e7787caa180e6a9935ae98f
   position: absolute;
 }
 
@@ -338,13 +282,6 @@ top: 15%;
   cursor: pointer;
 }
 
-<<<<<<< HEAD
-#pokemonSprites button {
-  margin-left: 100px;
-}
-
-=======
->>>>>>> 17f104dbf5231d176e7787caa180e6a9935ae98f
 #Player1nameHP {
   position: absolute;
   right: 50px;
@@ -380,13 +317,10 @@ top: 15%;
   padding-left: 10px;
   padding-top: 5px;
 }
-<<<<<<< HEAD
-=======
 
-#submitButton {
+#startAttack {
   margin-top: 20px;
   width: 160px;
   margin-left: 75px;
   height: 50px;
 }
->>>>>>> 17f104dbf5231d176e7787caa180e6a9935ae98f

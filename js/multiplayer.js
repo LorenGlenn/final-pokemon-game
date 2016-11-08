@@ -3,6 +3,8 @@ var turn=2;
 var mySign = '2';
 var playerNumber='2';
 var battleTurn =1;
+var P1damage;
+var P2damage;
 function getGameId(){ //Generate game ID
     if(window.location.search.substring(1).split('?')[0].split('=')[0] !== 'id') {
       return null;
@@ -45,7 +47,6 @@ $(function() {
 
   // add pokemons
   $("#addPokemon").click(function(){
-    console.log(("#"+activePokemon.name))
     $(("#"+activePokemon.name).toLowerCase()).addClass("disabled");
     set();
 
@@ -73,8 +74,7 @@ $(function() {
       if(eval("Player"+playerNumber).currentAction !=="skip"){  // get damage
         var attacker= (Player1.isPlayerTurn) ? (Player1.pokemons[Player1.currentPokemon]) : (Player2.pokemons[Player2.currentPokemon])
         var defender= (Player1.isPlayerTurn) ? (Player2.pokemons[Player2.currentPokemon]) : (Player1.pokemons[Player1.currentPokemon])
-        var damage = ((attacker.attack + eval("ember").power) - defender.defense);
-        console.log("attacker is: "+attacker + " Defender is: "+ defender);
+        var damage = ((attacker.attack + eval(eval("Player"+playerNumber).currentAction).power) - defender.defense);
         if(attacker.type == defender.weakAgainst){
           damage *= 2;
         } else if (attacker.type == defender.strongAgainst){
@@ -82,7 +82,8 @@ $(function() {
         }
       }
     }
-    publishAttack(playerNumber, newPokemon, battleTurn, damage, "Burn");
+    var tmpStatusEffect="Burn";
+    publishAttack(playerNumber, newPokemon, battleTurn, damage, tmpStatusEffect);
   });
 
   pubnub.subscribe({
@@ -148,14 +149,20 @@ $(function() {
            }
           }
         }
-        console.log("new message1 player: "+ m.player +" pokemonIndex: "+ m.pokemonChange +" damage: "+ m.damage)
+        (m.player===1) ? P1damage=m.damage : P2damage=m.damage;
+        Game.player1Attack=P1damage;
+        Game.player2Attack=P2damage;
+        // console.log("new message1 player: "+ m.player +" pokemonIndex: "+ m.pokemonChange +" damage: "+ m.damage + " status: " +m.statusEffect + " battleTurn "+ m.battleTurn)
       if(Game.state=="Battle"){
-        displaySprite(0);
-        var roundBegin = false;
 
+        displaySprite(0,0);
+        var roundBegin = false;
         $("#startAttack").click(function(){
-          console.log("new message2"+ m.player + m.pokemonChange + m.damage)
-          // Game.attacks[m.player-1]={pokemonChange: m.pokemonChange};
+          if(Game.player1Attack!== undefined && Game.player2Attack!== undefined){
+            Player1.pokemons[Player1.currentPokemon].hp -= Game.player2Attack;
+            Player2.pokemons[Player2.currentPokemon].hp -= Game.player1Attack;
+          }
+
         });
           eval("Player"+playerNumber).currentAction = "";
 
@@ -164,22 +171,6 @@ $(function() {
     },
    });
 
-
-
-function attack(attackName){
-  if(eval("Player"+playerNumber).currentAction !=="skip"){
-    var attacker= (Player1.isPlayerTurn) ? (Player1.pokemons[Player1.currentPokemon]) : (Player2.pokemons[Player2.currentPokemon])
-    var defender= (Player1.isPlayerTurn) ? (Player2.pokemons[Player2.currentPokemon]) : (Player1.pokemons[Player1.currentPokemon])
-    var damage = ((attacker.attack + eval(attackName).power) - defender.defense);
-    console.log("attacker is: "+attacker + " Defender is: "+ defender);
-    if(attacker.type == defender.weakAgainst){
-      damage *= 2;
-    } else if (attackName.type == defender.strongAgainst){
-      damage *= .5;
-    }
-    defender.hp -= damage;
-  }
-}
 
 function displaySprite(index1, index2){
 
@@ -198,9 +189,10 @@ function displaySprite(index1, index2){
 
   // $(".pokemon1HP").html(eval("Player"+playerNumber).pokemons[index1].hp + " HP");
   // $(".pokemon2HP").html(eval("Player"+mySign).pokemons[index1].hp + " HP");
-
   $(".move1Name").html(eval("Player"+playerNumber).pokemons[index1].moves[0].name);
+  $("#move1").attr("value",eval("Player"+playerNumber).pokemons[index1].moves[0].name.toLowerCase().replace(" ",""));
   $(".move2Name").html(eval("Player"+playerNumber).pokemons[index1].moves[1].name);
+  $("#move2").attr("value",eval("Player"+playerNumber).pokemons[index1].moves[1].name.toLowerCase().replace(" ",""));
 
   $(".move1Description").html(eval("Player"+playerNumber).pokemons[index1].moves[0].description);
   $(".move2Description").html(eval("Player"+playerNumber).pokemons[index1].moves[1].description);
