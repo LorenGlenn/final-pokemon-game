@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Cabin|Freckle+Face|Open+Sans" rel="stylesheet">
     <meta charset="utf-8">
@@ -15,7 +15,7 @@
           <br>
           <form id="getID" class="form-inline">
             <div class="form-group">
-              <label for="exampleInputName1">Game Id</label>
+              <label for="exampleInputName1">Game ID</label>
               <input type="number" class="form-control" id="inputGameId" placeholder="Enter Game ID">
             </div>
             <button type="submit" id="enterGameButton" class="btn btn-primary">Enter game!</button>
@@ -102,15 +102,56 @@
     </div>
 
     <!--Battle DIV-->
-    <div id="battle">
-      <div class="container">
-        <div class="row">
-            <div class="col-md-6" id="Player1Fighter" value=2>
 
+    <div id="battleContainer">
+      <div id="battle">
+        <div id="Player1Fighter">
+        </div>
+        <div id="Player2Fighter">
+        </div>
+        <div id="Player1nameHP">
+          <span id="Pokemon1Name">Charmander</span><br>
+          <div class="pokemonHP">
+            <div class="progress">
+              <div class="progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                60/100 HP
+              </div>
             </div>
-            <div class="col-md-6" id="Player2Fighter">
-
+            <span class="label label-danger">Burned</span>
+          </div>
+        </div>
+        <div id="Player2nameHP">
+          <span id="Pokemon2Name">Squirtle</span><br>
+          <div class="pokemonHP">
+            <div class="progress">
+              <div class="progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                100/100 HP
+              </div>
             </div>
+            <span class="label label-warning">Paralyzed</span>
+          </div>
+        </div>
+      </div>
+      <div id="attackMenu">
+        <div id="attacks col-sm-6">
+          <div id="move1" class="col-sm-3 attack">
+            <p><strong><span class="move1Name">Giga Drain</span></strong></p>
+            <p><strong>Description:</strong> <span class="move1Description">User gains half the HP inflicted on opponent.</span></p>
+            <p><strong>Power:</strong> <span class="move1Power">10</span></p>
+          </div>
+          <div id="move2" class="col-sm-3 attack">
+            <p><strong><span class="move2Name">Leaf Blade</span></strong></p>
+            <p><strong>Description:</strong> <span class="move2Description">A leaf attack</span></p>
+            <p><strong>Power:</strong> <span class="move2Power">20</span></p>
+          </div>
+        </div>
+        <div id="options col-sm-6">
+          <div id="pokemonSprites">
+            <span id="pokemonOption1" class="attack" val="0"> <img src="http://www.pokestadium.com/sprites/xy/mew.gif"></span>
+            <span id="pokemonOption2" class="attack" val="1"> <img src="http://www.pokestadium.com/sprites/xy/jigglypuff.gif"></span>
+            <span id="pokemonOption3" class="attack" val="2"><img src="http://www.pokestadium.com/sprites/xy/abra.gif"></span>
+            <button type="click" class="btn-success btn">Forfeit!</button>
+          </div>
         </div>
       </div>
     </div>

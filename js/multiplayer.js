@@ -145,6 +145,7 @@ $(function() {
           eval("Player"+playerNumber).currentAction = "";
 
         }
+
         Game.state="Done";
       }
     },
@@ -167,9 +168,15 @@ function attack(attackName){
 }
 
 function displaySprite(index){
+
   eval("Player"+playerNumber).currentPokemon = index;
+<<<<<<< HEAD
   $("#Player1Fighter").append("<img src='" + eval("Player"+playerNumber).pokemons[index].backSprite + "'><br>");
 
+=======
+  $("#Player1Fighter").append("<img src='" + eval("Player"+playerNumber).pokemons[index].backSprite + "' width='150px'><br>");
+  $("#Player2Fighter").append("<img src='" + eval("Player"+mySign).pokemons[index].frontSprite + "' width='90px'><br>");
+>>>>>>> ad45b59a14dd1fb092e254272640961e7c1c39c7
 }
 
  function publishPosition(player,pokemonChosen) {
