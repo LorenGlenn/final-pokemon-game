@@ -3,6 +3,8 @@ var turn=2;
 var mySign = '2';
 var playerNumber='2';
 var battleTurn =1;
+var P1damage;
+var P2damage;
 function getGameId(){ //Generate game ID
     if(window.location.search.substring(1).split('?')[0].split('=')[0] !== 'id') {
       return null;
@@ -45,10 +47,43 @@ $(function() {
 
   // add pokemons
   $("#addPokemon").click(function(){
-    console.log(("#"+activePokemon.name))
     $(("#"+activePokemon.name).toLowerCase()).addClass("disabled");
     set();
 
+  });
+
+  $(".attack").click(function(){
+    var battleTurn=1;
+    var newPokemon;
+    $("#startAttack").removeClass("disabled");
+    eval("Player"+playerNumber).currentAction = $(this).attr("value");
+    if(parseInt(eval("Player"+playerNumber).currentAction)){
+      newPokemon = parseInt(eval("Player"+playerNumber).currentAction);
+      eval("Player"+playerNumber).currentAction = "skip";
+    }
+    else{ // get battleTurn
+      if(Player2.pokemons[Player2.currentPokemon].speed > Player1.pokemons[Player1.currentPokemon].speed){
+        battleTurn=2;
+        // attack(Player2.currentAction);
+        // attack(Player1.currentAction);
+      }else{
+        battleTurn=1;
+        // attack(Player1.currentAction);
+        // attack(Player2.currentAction);
+      }
+      if(eval("Player"+playerNumber).currentAction !=="skip"){  // get damage
+        var attacker= (Player1.isPlayerTurn) ? (Player1.pokemons[Player1.currentPokemon]) : (Player2.pokemons[Player2.currentPokemon])
+        var defender= (Player1.isPlayerTurn) ? (Player2.pokemons[Player2.currentPokemon]) : (Player1.pokemons[Player1.currentPokemon])
+        var damage = ((attacker.attack + eval(eval("Player"+playerNumber).currentAction).power) - defender.defense);
+        if(attacker.type == defender.weakAgainst){
+          damage *= 2;
+        } else if (attacker.type == defender.strongAgainst){
+          damage *= .5;
+        }
+      }
+    }
+    var tmpStatusEffect="Burn";
+    publishAttack(playerNumber, newPokemon, battleTurn, damage, tmpStatusEffect);
   });
 
   pubnub.subscribe({
@@ -114,58 +149,28 @@ $(function() {
            }
           }
         }
+        (m.player===1) ? P1damage=m.damage : P2damage=m.damage;
+        Game.player1Attack=P1damage;
+        Game.player2Attack=P2damage;
+        // console.log("new message1 player: "+ m.player +" pokemonIndex: "+ m.pokemonChange +" damage: "+ m.damage + " status: " +m.statusEffect + " battleTurn "+ m.battleTurn)
       if(Game.state=="Battle"){
+
         displaySprite(0,0);
         var roundBegin = false;
-        $(".attack").click(function(){
-          eval("Player"+playerNumber).currentAction = $(this).val();
-          if (Player1.currentAction !== false && Player2.currentAction !== false) {
-             roundBegin = true;
+        $("#startAttack").click(function(){
+          if(Game.player1Attack!== undefined && Game.player2Attack!== undefined){
+            Player1.pokemons[Player1.currentPokemon].hp -= Game.player2Attack;
+            Player2.pokemons[Player2.currentPokemon].hp -= Game.player1Attack;
           }
+
         });
-        if (roundBegin){
-          console.log("Round begins!")
-
-          if(parseInt(eval("Player"+playerNumber).currentAction)){
-            eval("Player"+playerNumber).currentPokemon = parseInt(eval("Player"+playerNumber).currentAction);
-            eval("Player"+playerNumber).currentAction = "skip";
-            displaySprite(eval("Player"+playerNumber).currentPokemon);
-          }
-          else{
-            if(Player2.pokemons[Player2.currentPokemon].speed > Player1.pokemons[Player1.currentPokemon].speed){
-              battleTurn=2;
-              attack(Player2.currentAction);
-              attack(Player1.currentAction);
-            }else{
-              battleTurn=1;
-              attack(Player1.currentAction);
-              attack(Player2.currentAction);
-            }
-        }
           eval("Player"+playerNumber).currentAction = "";
-
-        }
 
         Game.state="Done";
       }
     },
    });
 
-
-function attack(attackName){
-  if(eval("Player"+playerNumber).currentAction !=="skip"){
-    var attacker= (Player1.isPlayerTurn) ? (Player1.pokemons[Player1.currentPokemon]) : (Player2.pokemons[Player2.currentPokemon])
-    var defender= (Player1.isPlayerTurn) ? (Player2.pokemons[Player2.currentPokemon]) : (Player1.pokemons[Player1.currentPokemon])
-    var damage = ((attacker.attack + eval(attackName).power) - defender.defense);
-    console.log("attacker is: "+attacker + " Defender is: "+ defender);
-    if(attacker.type == defender.weakAgainst){
-      damage *= 2;
-    } else if (attackName.type == defender.strongAgainst){
-      damage *= .5;
-    }
-    defender.hp -= damage;
-  }
-}
 
 function displaySprite(index1, index2){
 
@@ -178,7 +183,7 @@ function displaySprite(index1, index2){
 
   // var maxHp = eval("Player"+playerNumber).pokemons[index1].hp
   // var hpToPercent = function(hp, maxHP) {
-  //   
+  //
   //   return (hp / maxHP) * 100;
   // }
   //
@@ -188,13 +193,16 @@ function displaySprite(index1, index2){
   $(".pokemon2HP").html(eval("Player"+mySign).pokemons[index1].hp + " HP");
 
   $(".move1Name").html(eval("Player"+playerNumber).pokemons[index1].moves[0].name);
+  $("#move1").attr("value",eval("Player"+playerNumber).pokemons[index1].moves[0].name.toLowerCase().replace(" ",""));
   $(".move2Name").html(eval("Player"+playerNumber).pokemons[index1].moves[1].name);
+  $("#move2").attr("value",eval("Player"+playerNumber).pokemons[index1].moves[1].name.toLowerCase().replace(" ",""));
 
   $(".move1Description").html(eval("Player"+playerNumber).pokemons[index1].moves[0].description);
   $(".move2Description").html(eval("Player"+playerNumber).pokemons[index1].moves[1].description);
 
   $(".move1Power").html(eval("Player"+playerNumber).pokemons[index1].moves[0].power);
   $(".move2Power").html(eval("Player"+playerNumber).pokemons[index1].moves[1].power);
+
 }
 
  function publishPosition(player,pokemonChosen) {
@@ -206,6 +214,15 @@ function displaySprite(index1, index2){
      }
    });
   }
+  function publishAttack(player,pokemonChange,battleTurn,damage,statusEffect) {
+    pubnub.publish({
+      channel: channel,
+      message: {player: player, pokemonChange: pokemonChange, battleTurn: battleTurn, damage: damage, statusEffect: statusEffect},
+      callback: function(m){
+        console.log(m);
+      }
+    });
+   }
   function set() {
     if (turn !== mySign) return;
     publishPosition(mySign,activePokemon);

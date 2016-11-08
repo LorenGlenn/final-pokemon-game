@@ -279,13 +279,15 @@ var cubone = {
   weakAgainst: "Grass",
   strongAgainst: "Electric"
 }
+
 // Player1.pokemons[Player1.currentPokemon].moves[0].name
+
 var Player1 = {
   pokemons : [],
   turn:0,
   isPlayerTurn: true,
   currentPokemon: 0,
-  currentAction: false
+  currentAction: 0
 }
 
 var Player2 = {
@@ -293,11 +295,13 @@ var Player2 = {
   turn:0,
   isPlayerTurn: false,
   currentPokemon: 0,
-  currentAction: false
+  currentAction: 0
 }
 var Game = {
   currentTurn:-1,
-  state:"Menu"
+  state:"Menu",
+  player1Attack:0,
+  player2Attack:0
 }
 
 $(function() {

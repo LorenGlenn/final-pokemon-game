@@ -153,6 +153,7 @@ top: 15%;
 
 #selectedPokemonsP1{
   display: inline-block;
+
 }
 #selectedPokemonsP2{
   display: inline-block;
@@ -318,7 +319,7 @@ top: 15%;
   padding-top: 5px;
 }
 
-#submitButton {
+#startAttack {
   margin-top: 20px;
   width: 160px;
   margin-left: 75px;
