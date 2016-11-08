@@ -1,0 +1,325 @@
+* {
+  margin: 0;
+}
+
+body {
+  background-color: #DDEEFF;
+  font-family: 'Open Sans', sans-serif;
+}
+
+li {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+#myModal {
+  height:100%;
+  width: 100%;
+  position: absolute;
+  background: #4b6cb7; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #4b6cb7 , #182848); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #4b6cb7 , #182848); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  text-align: center;
+  padding: 40px;
+  padding-top: 300px;
+}
+
+#myModal h4 {
+  color: #E5E500;
+}
+
+#myModal h1 {
+  color: #E5E500;
+  font-family: "Freckle Face", cursive;
+  font-size: 4em;
+  text-shadow: 4px 4px 0px black;
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+#container {
+  position: absolute;
+  left: 10%;
+  top: 200px;
+}
+
+#gameInfo {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+#leftSide {
+  position: absolute;
+  left: 20%;
+}
+
+#rightSide {
+  position: absolute;
+  left: 235%;
+}
+
+#center {
+position: absolute;
+left: 60%;
+top: 15%;
+}
+
+#activePokemon {
+  position: absolute;
+  z-index: 10;
+  left: 40%;
+  top: 0;
+  width: 150px;
+}
+
+#activePokemon img {
+  width: 100px;
+}
+
+#bio {
+  position: absolute;
+  width: 400px;
+  border: 5px inset grey;
+  border-radius: 10px;
+  left: 77%;
+  top: 40%;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 1.1em;
+  background: #4b6cb7; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #4b6cb7 , #182848); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #4b6cb7 , #182848); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
+}
+
+
+
+#bio h2 {
+  text-align: center;
+  font-family: 'Cabin', cursive;
+  color: yellow;
+  letter-spacing: 2px;
+  font-weight: lighter;
+  text-shadow: 2px 2px 2px black;
+}
+
+#statsLeft {
+  float: left;
+  padding: 10px;
+}
+
+#statsRight {
+  padding: 10px;
+  float: right;
+}
+
+.icon {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid black;
+  border-radius: 100%;
+  padding: 5px;
+  /*background-color: #334477;*/
+  height: 75px;
+  width: 75px;
+  background: #C04848; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #C04848 , #480048); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #C04848 , #480048); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.icon:hover {
+  cursor: pointer;
+}
+
+.pushleft {
+  margin-left: -20px;
+}
+
+.pushfarleft {
+  margin-left: -35px;
+}
+
+.pushright {
+  margin-left: 20px;
+}
+
+.pushfarright {
+  margin-left: 35px;
+}
+
+#selectedPokemonsP1{
+  display: inline-block;
+}
+#selectedPokemonsP2{
+  display: inline-block;
+
+}
+
+#addPokemon{
+  margin-top: 500px;
+  text-align: center;
+}
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+#buttons {
+  position: relative;
+  left: 93%;
+}
+
+#readyButtons {
+  position: relative;
+  left: 50%;
+}
+
+.readyButton {
+  margin: 10px;
+}
+
+#battleContainer {
+  display: none;
+  position: absolute;
+  background-color: white;
+  left: 0;
+  top: 200px;
+  z-index: 20;
+  height: 800px;
+  width: 1200px;
+  font-size: 1.1em;
+  letter-spacing: 1px;
+}
+
+.progress {
+  font-family: 'VT323', monospace;
+}
+
+#battle {
+  background-image: url("../img/battlebg.png");
+  background-size: cover;
+  width: 100%;
+  height: 70%;
+  position: absolute;
+}
+
+#Player1Fighter {
+  position: absolute;
+  bottom: 20px;
+  left: 75px;
+}
+
+#Player2Fighter {
+  position: absolute;
+  top: 270px;
+  right: 100px;
+}
+
+#attackMenu {
+  background: #4b6cb7; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #4b6cb7 , #182848); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #4b6cb7 , #182848); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  border: 5px solid black;
+  position: relative;
+  top: 70%;
+  height: 30%;
+  width: 100%;
+  display: inline-block;
+  color: white;
+  font-size: 1.2em;
+  padding: 10px;
+}
+
+#move1, #move2 {
+  height: 200px;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #123;
+}
+
+#move1 p, #move2 p{
+  margin: 2px;
+}
+
+.move1Name, .move2Name {
+  text-decoration: underline;
+  font-size: 1.5em;
+}
+
+#move1:hover, #move2:hover {
+  border: 2px solid white;
+  height: 200px;
+  text-align: center;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #456;
+  cursor: pointer;
+}
+
+#pokemonSprites {
+  margin-left:60%;
+  margin-top: 20px;
+  position: absolute;
+}
+
+#pokemonSprites img {
+  padding: 20px;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  background-color: #123;
+}
+
+#pokemonSprites img:hover {
+  background-color: #456;
+  border: 2px solid white;
+  cursor: pointer;
+}
+
+#Player1nameHP {
+  position: absolute;
+  right: 50px;
+  bottom: 50px;
+  width: 300px;
+  height: 120px;
+  border: 2px solid #000;
+  border-radius: 10px;
+  background-color: #fff5dd;
+  padding: 10px;
+}
+
+#Player2nameHP {
+  position: absolute;
+  left: 50px;
+  top: 50px;
+  width: 300px;
+  height: 120px;
+  border: 2px solid #000;
+  border-radius: 10px;
+  background-color: #fff5dd;
+  padding: 10px;
+}
+
+#Pokemon1Name, #Pokemon2Name {
+  font-size: 1.5em;
+  font-weight: bold;
+  padding-top: 5px;
+  padding-left: 10px;
+}
+
+.pokemonHP {
+  padding-left: 10px;
+  padding-top: 5px;
+}
+
+#submitButton {
+  margin-top: 20px;
+  width: 160px;
+  margin-left: 75px;
+  height: 50px;
+}
