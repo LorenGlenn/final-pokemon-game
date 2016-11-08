@@ -297,7 +297,8 @@ var Player2 = {
 }
 var Game = {
   currentTurn:-1,
-  state:"Menu"
+  state:"Menu",
+  attacks:[]
 }
 
 $(function() {

@@ -51,6 +51,40 @@ $(function() {
 
   });
 
+  $(".attack").click(function(){
+    var battleTurn=1;
+    var newPokemon;
+    $("#startAttack").removeClass("disabled");
+    eval("Player"+playerNumber).currentAction = $(this).attr("value");
+    if(parseInt(eval("Player"+playerNumber).currentAction)){
+      newPokemon = parseInt(eval("Player"+playerNumber).currentAction);
+      eval("Player"+playerNumber).currentAction = "skip";
+    }
+    else{ // get battleTurn
+      if(Player2.pokemons[Player2.currentPokemon].speed > Player1.pokemons[Player1.currentPokemon].speed){
+        battleTurn=2;
+        // attack(Player2.currentAction);
+        // attack(Player1.currentAction);
+      }else{
+        battleTurn=1;
+        // attack(Player1.currentAction);
+        // attack(Player2.currentAction);
+      }
+      if(eval("Player"+playerNumber).currentAction !=="skip"){  // get damage
+        var attacker= (Player1.isPlayerTurn) ? (Player1.pokemons[Player1.currentPokemon]) : (Player2.pokemons[Player2.currentPokemon])
+        var defender= (Player1.isPlayerTurn) ? (Player2.pokemons[Player2.currentPokemon]) : (Player1.pokemons[Player1.currentPokemon])
+        var damage = ((attacker.attack + eval("ember").power) - defender.defense);
+        console.log("attacker is: "+attacker + " Defender is: "+ defender);
+        if(attacker.type == defender.weakAgainst){
+          damage *= 2;
+        } else if (attacker.type == defender.strongAgainst){
+          damage *= .5;
+        }
+      }
+    }
+    publishAttack(playerNumber, newPokemon, battleTurn, damage, "Burn");
+  });
+
   pubnub.subscribe({
      channel: channel,
      connect: function(){console.log("connected")},
@@ -88,6 +122,7 @@ $(function() {
 
      },
      callback: function(m) {
+
        if(Game.state=="Menu"){
          changeTurn(m.player);
          (turn==1) ? Player1.turn++ : Player2.turn++;
@@ -114,58 +149,21 @@ $(function() {
            }
           }
         }
+        console.log("new message1 player: "+ m.player +" pokemonIndex: "+ m.pokemonChange +" damage: "+ m.damage)
       if(Game.state=="Battle"){
         displaySprite(0);
         var roundBegin = false;
-        $(".attack").click(function(){
-          eval("Player"+playerNumber).currentAction = $(this).val();
-          if (Player1.currentAction !== false && Player2.currentAction !== false) {
-             roundBegin = true;
-          }
+
+        $("#startAttack").click(function(){
+          console.log("new message2"+ m.player + m.pokemonChange + m.damage)
+          // Game.attacks[m.player-1]={pokemonChange: m.pokemonChange};
         });
-        if (roundBegin){
-          console.log("Round begins!")
-
-          if(parseInt(eval("Player"+playerNumber).currentAction)){
-            eval("Player"+playerNumber).currentPokemon = parseInt(eval("Player"+playerNumber).currentAction);
-            eval("Player"+playerNumber).currentAction = "skip";
-            displaySprite(eval("Player"+playerNumber).currentPokemon);
-          }
-          else{
-            if(Player2.pokemons[Player2.currentPokemon].speed > Player1.pokemons[Player1.currentPokemon].speed){
-              battleTurn=2;
-              attack(Player2.currentAction);
-              attack(Player1.currentAction);
-            }else{
-              battleTurn=1;
-              attack(Player1.currentAction);
-              attack(Player2.currentAction);
-            }
-        }
           eval("Player"+playerNumber).currentAction = "";
-
-        }
-
         Game.state="Done";
       }
     },
    });
 
-
-function attack(attackName){
-  if(eval("Player"+playerNumber).currentAction !=="skip"){
-    var attacker= (Player1.isPlayerTurn) ? (Player1.pokemons[Player1.currentPokemon]) : (Player2.pokemons[Player2.currentPokemon])
-    var defender= (Player1.isPlayerTurn) ? (Player2.pokemons[Player2.currentPokemon]) : (Player1.pokemons[Player1.currentPokemon])
-    var damage = ((attacker.attack + eval(attackName).power) - defender.defense);
-    console.log("attacker is: "+attacker + " Defender is: "+ defender);
-    if(attacker.type == defender.weakAgainst){
-      damage *= 2;
-    } else if (attackName.type == defender.strongAgainst){
-      damage *= .5;
-    }
-    defender.hp -= damage;
-  }
-}
 
 function displaySprite(index){
 
@@ -184,6 +182,15 @@ function displaySprite(index){
      }
    });
   }
+  function publishAttack(player,pokemonChange,battleTurn,damage,statusEffect) {
+    pubnub.publish({
+      channel: channel,
+      message: {player: player, pokemonChange: pokemonChange, battleTurn: battleTurn, damage: damage, statusEffect: statusEffect},
+      callback: function(m){
+        console.log(m);
+      }
+    });
+   }
   function set() {
     if (turn !== mySign) return;
     publishPosition(mySign,activePokemon);
