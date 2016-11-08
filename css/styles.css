@@ -211,7 +211,7 @@ top: 100px;
 
 #Player2Fighter {
   position: absolute;
-  top: 300px;
+  top: 270px;
   right: 100px;
 }
 
@@ -280,4 +280,40 @@ top: 100px;
 
 #pokemonSprites button {
   margin-left: 100px;
+}
+
+#Player1nameHP {
+  position: absolute;
+  right: 50px;
+  bottom: 50px;
+  width: 300px;
+  height: 120px;
+  border: 2px solid #000;
+  border-radius: 10px;
+  background-color: #fff5dd;
+  padding: 10px;
+}
+
+#Player2nameHP {
+  position: absolute;
+  left: 50px;
+  top: 50px;
+  width: 300px;
+  height: 120px;
+  border: 2px solid #000;
+  border-radius: 10px;
+  background-color: #fff5dd;
+  padding: 10px;
+}
+
+#Pokemon1Name, #Pokemon2Name {
+  font-size: 1.5em;
+  font-weight: bold;
+  padding-top: 5px;
+  padding-left: 10px;
+}
+
+.pokemonHP {
+  padding-left: 10px;
+  padding-top: 5px;
 }
