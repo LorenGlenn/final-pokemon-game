@@ -2,6 +2,7 @@ var uuid = PUBNUB.uuid();
 var turn=2;
 var mySign = '2';
 var playerNumber='2';
+var battleTurn =1;
 function getGameId(){ //Generate game ID
     if(window.location.search.substring(1).split('?')[0].split('=')[0] !== 'id') {
       return null;
@@ -115,41 +116,60 @@ $(function() {
         }
       if(Game.state=="Battle"){
         displaySprite(0);
-        attack("ember");
-        displaySprite(0);
-        // $("").click(function(){
-        //   attackName = $(this).val();
-        //
-        // })
+        var roundBegin = false;
+        $(".attack").click(function(){
+          eval("Player"+playerNumber).currentAction = $(this).val();
+          if (Player1.currentAction !== false && Player2.currentAction !== false) {
+             roundBegin = true;
+          }
+        });
+        if (roundBegin){
+          console.log("Round begins!")
+
+          if(parseInt(eval("Player"+playerNumber).currentAction)){
+            eval("Player"+playerNumber).currentPokemon = parseInt(eval("Player"+playerNumber).currentAction);
+            eval("Player"+playerNumber).currentAction = "skip";
+            displaySprite(eval("Player"+playerNumber).currentPokemon);
+          }
+          else{
+            if(Player2.pokemons[Player2.currentPokemon].speed > Player1.pokemons[Player1.currentPokemon].speed){
+              battleTurn=2;
+              attack(Player2.currentAction);
+              attack(Player1.currentAction);
+            }else{
+              battleTurn=1;
+              attack(Player1.currentAction);
+              attack(Player2.currentAction);
+            }
+        }
+          eval("Player"+playerNumber).currentAction = "";
+
+        }
         Game.state="Done";
       }
     },
    });
 
+
 function attack(attackName){
-  attackName.toLowerCase();
-  var attacker= (Player1.isPlayerTurn) ? (Player1.pokemons[Player1.currentPokemon]) : (Player2.pokemons[Player2.currentPokemon])
-  var defender= (Player1.isPlayerTurn) ? (Player2.pokemons[Player2.currentPokemon]) : (Player1.pokemons[Player1.currentPokemon])
-  var damage = ((attacker.attack + eval(attackName).power) - defender.defense);
-  console.log("attacker is: "+attacker + " Defender is: "+ defender);
-  if(attacker.type == defender.weakAgainst){
+  if(eval("Player"+playerNumber).currentAction !=="skip"){
+    var attacker= (Player1.isPlayerTurn) ? (Player1.pokemons[Player1.currentPokemon]) : (Player2.pokemons[Player2.currentPokemon])
+    var defender= (Player1.isPlayerTurn) ? (Player2.pokemons[Player2.currentPokemon]) : (Player1.pokemons[Player1.currentPokemon])
+    var damage = ((attacker.attack + eval(attackName).power) - defender.defense);
+    console.log("attacker is: "+attacker + " Defender is: "+ defender);
+    if(attacker.type == defender.weakAgainst){
       damage *= 2;
-  } else if (attackName.type == defender.strongAgainst){
+    } else if (attackName.type == defender.strongAgainst){
       damage *= .5;
+    }
+    defender.hp -= damage;
   }
-  defender.hp -= damage;
 }
 
 function displaySprite(index){
   eval("Player"+playerNumber).currentPokemon = index;
   $("#Player1Fighter").append("<img src='" + eval("Player"+playerNumber).pokemons[index].backSprite + "'><br>");
-  $("#Player1Fighter").append("name: "+eval("Player"+playerNumber).pokemons[index].name + "<br>");
-  $("#Player1Fighter").append("hp: "+eval("Player"+playerNumber).pokemons[index].hp);
-  $("#Player1Fighter").append("attack: "+eval("Player"+playerNumber).pokemons[index].attack);
-  $("#Player1Fighter").append("defense: "+eval("Player"+playerNumber).pokemons[index].defense);
-  $("#Player1Fighter").append("speed: "+eval("Player"+playerNumber).pokemons[index].speed);
-  $("#Player1Fighter").append("move1: "+eval("Player"+playerNumber).pokemons[index].moves[0].name);
-  $("#Player1Fighter").append("move2: "+eval("Player"+playerNumber).pokemons[index].moves[1].name);
+
 }
 
  function publishPosition(player,pokemonChosen) {

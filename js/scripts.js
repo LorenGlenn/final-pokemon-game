@@ -18,7 +18,7 @@ var ember = {
   name: "Ember",
   type: "Fire",
   power: 10,
-  description: "May inflict burn on opponent."
+  description: "Inflicts burn on opponent."
 }
 
 var heatWave = {
@@ -284,14 +284,16 @@ var Player1 = {
   pokemons : [],
   turn:0,
   isPlayerTurn: true,
-  currentPokemon: 0
+  currentPokemon: 0,
+  currentAction: false
 }
 
 var Player2 = {
   pokemons :[],
   turn:0,
   isPlayerTurn: false,
-  currentPokemon: 0
+  currentPokemon: 0,
+  currentAction: false
 }
 var Game = {
   currentTurn:-1,
