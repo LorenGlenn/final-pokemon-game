@@ -1,13 +1,13 @@
 var activePokemon;
 
-var leafBlade = {
+var leafblade = {
   name: "Leaf Blade",
   type: "Grass",
   power: 20,
   description: "A leaf attack."
 }
 
-var megaDrain = {
+var megadrain = {
   name: "Mega Drain",
   type: "Grass",
   power: 10,
@@ -21,7 +21,7 @@ var ember = {
   description: "Inflicts burn on opponent."
 }
 
-var heatWave = {
+var heatwave = {
   name: "Heat Wave",
   type: "Fire",
   power: 20,
@@ -85,7 +85,7 @@ var barrier = {
 }
 
 var psyshock = {
-  name: "Barrier",
+  name: "Psyshock",
   type: "Psychic",
   power: 20,
   description: "Powerful psychic attack"
@@ -147,7 +147,7 @@ var bulbasaur = {
   attack: 60,
   defense: 80,
   speed: 40,
-  moves: [leafBlade, megaDrain],
+  moves: [leafblade, megadrain],
   backSprite: "http://www.pokestadium.com/sprites/xy/back/bulbasaur.gif",
   frontSprite: "http://www.pokestadium.com/sprites/xy/bulbasaur.gif",
   weakAgainst: "Fire",
@@ -161,7 +161,7 @@ var charmander = {
   attack: 100,
   defense: 50,
   speed: 80,
-  moves: [ember, heatWave],
+  moves: [ember, heatwave],
   backSprite: "http://www.pokestadium.com/sprites/xy/back/charmander.gif",
   frontSprite: "http://www.pokestadium.com/sprites/xy/charmander.gif",
   weakAgainst: "Water",
@@ -231,7 +231,7 @@ var abra = {
   attack: 80,
   defense: 90,
   speed: 80,
-  moves: [psyshock],
+  moves: [psyshock, torment],
   backSprite: "http://www.pokestadium.com/sprites/xy/back/abra.gif",
   frontSprite: "http://www.pokestadium.com/sprites/xy/abra.gif",
   weakAgainst: "Normal",
