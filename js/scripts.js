@@ -304,13 +304,21 @@ var Game = {
   player2Attack:0
 }
 
+var hideLoading = function() {
+  $("#loading").hide();
+}
+
 $(function() {
+  setTimeout(hideLoading, 3000);
+
   activePokemon="cubone";
   var p1SelectedPokemons=0;
   var p2SelectedPokemons=0;
   $("#pokeSelector img").click(function(){
     activePokemon=eval($(this).attr("id"));
   });
+
+
 
   $(".icon").click(function(){
     // console.log(activePokemon);
@@ -326,8 +334,7 @@ $(function() {
     $("#moves").empty();
     activePokemon.moves.forEach(function(move) {
       $("#moves").append("<li>" + move.name + "</li>")
-    })
-  })
+    });
+  });
 
-
-})
+});

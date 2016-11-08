@@ -29,9 +29,9 @@
 
 3) Status condition label
 
-4) Attack animations
+4) Attack animations ($("#activePokemon img").animate({width: '150px'}).delay(100).animate({width: '100px'});)
 
-5) Attack results
+5) Attack results ($("#battleOutput").fadeIn().delay(1100).fadeOut();)
 
 6) Game status styling
 
