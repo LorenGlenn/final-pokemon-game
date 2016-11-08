@@ -222,14 +222,17 @@ function displaySprite(index1){
   $("#Pokemon1Name").html(eval("Player"+playerNumber).pokemons[index1].name);
   $("#Pokemon2Name").html(eval("Player"+mySign).pokemons[index1].name);
 
-  var hpToPercent = function(hp, maxHP) {
-    return (hp / maxHP) * 100;
-  }
+  // var maxHp = eval("Player"+playerNumber).pokemons[index1].hp
+  // var hpToPercent = function(hp, maxHP) {
+  //
+  //   return (hp / maxHP) * 100;
+  // }
+  //
+  // hpToPercent(eval("Player"+mySign).pokemons[index1].hp, eval("Player"+mySign).pokemons[index1].maxHP);
 
-  hpToPercent()
+  $(".pokemon1HP").html(eval("Player"+playerNumber).pokemons[index1].hp + " HP");
+  $(".pokemon2HP").html(eval("Player"+mySign).pokemons[index1].hp + " HP");
 
-  // $(".pokemon1HP").html(eval("Player"+playerNumber).pokemons[index1].hp + " HP");
-  // $(".pokemon2HP").html(eval("Player"+mySign).pokemons[index1].hp + " HP");
   $(".move1Name").html(eval("Player"+playerNumber).pokemons[index1].moves[0].name);
   $("#move1").attr("value",eval("Player"+playerNumber).pokemons[index1].moves[0].name.toLowerCase().replace(" ",""));
   $(".move2Name").html(eval("Player"+playerNumber).pokemons[index1].moves[1].name);

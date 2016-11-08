@@ -4,12 +4,16 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Cabin|Freckle+Face|Open+Sans|VT323" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <meta charset="utf-8">
     <title>Pokemon Battle!</title>
   </head>
   <body>
+    <div id="loading">
+      <h1>Loading...</h1>
+    </div>
     <div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-      <h1>Pokemon Battle</h1>
+      <h1>Pok&eacute;mon Battle</h1>
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <br>
@@ -87,15 +91,15 @@
       </div>
       <div id="buttons"><br>
         <div>
-          <center><button type="button" name="button" class="btn btn-primary" id="addPokemon">Add pokemon</button></center>
+          <center><button type="button" name="button" class="btn btn-primary" id="addPokemon">Add Pok&eacute;mon</button></center>
         </div>
         <div id="selectedPokemonsP1">
           <h2>&nbsp;&nbsp;Player 1</h2>
-          <div id="battleReadyP1" class="readyButton disabled btn btn-primary">Player 1 Ready</div>
+          <div id="battleReadyP1" class="readyButton disabled btn btn-primary">Player 1 Ready</div><br>
         </div>
         <div id="selectedPokemonsP2">
           <h2>&nbsp;&nbsp;Player 2</h2>
-          <div id="battleReadyP2" class="readyButton disabled btn btn-primary">Player 2 Ready</div>
+          <div id="battleReadyP2" class="readyButton disabled btn btn-primary">Player 2 Ready</div><br>
         </div><br>
 
       </div>
@@ -106,6 +110,8 @@
 
     <div id="battleContainer">
       <div id="battle">
+        <div id="battleOutput">Pikachu used thunderwave!
+        </div>
         <div id="Player1Fighter">
         </div>
         <div id="Player2Fighter">
@@ -157,7 +163,17 @@
           </div>
         </div>
       </div>
+    </div><!--Close Battle Container-->
+    <div id="win">
+      <p>You win! You are a Pok&eacute;mon master!</p>
+      <a href="index.html"><button type="click" class="btn btn-primary">Play again</button></a>
+
     </div>
+    <div id="lose">
+      <p>You lose! You must train harder.</p>
+      <a href="index.html"><button type="click" class="btn btn-primary">Play again</button></a>
+    </div>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
     <script src="js/scripts.js" type="text/javascript"></script>
