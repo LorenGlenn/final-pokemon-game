@@ -90,13 +90,14 @@
           <center><button type="button" name="button" class="btn btn-primary" id="addPokemon">Add pokemon</button></center>
         </div>
         <div id="selectedPokemonsP1">
-          <h1>Player 1</h1>
+          <h2>&nbsp;&nbsp;Player 1</h2>
+          <div id="battleReadyP1" class="readyButton disabled btn btn-primary">Player 1 Ready</div>
         </div>
         <div id="selectedPokemonsP2">
-          <h1>Player 2</h1>
+          <h2>&nbsp;&nbsp;Player 2</h2>
+          <div id="battleReadyP2" class="readyButton disabled btn btn-primary">Player 2 Ready</div>
         </div><br>
-        <div id="battleReadyP1" class="readyButton disabled btn btn-primary">Player 1 Ready</div>
-        <div id="battleReadyP2" class="readyButton disabled btn btn-primary">Player 2 Ready</div>
+
       </div>
 
     </div>
@@ -112,23 +113,25 @@
         <div id="Player1nameHP">
           <span id="Pokemon1Name">Charmander</span><br>
           <div class="pokemonHP">
+            <!-- <div class="pokemon1HP"></div> -->
             <div class="progress">
-              <div class="progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                60/100 HP
+              <div class="pokemon1HP progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+
               </div>
             </div>
-            <span class="label label-danger">Burned</span>
+            <span class="label" id="player1Status"></span>
           </div>
         </div>
         <div id="Player2nameHP">
           <span id="Pokemon2Name">Squirtle</span><br>
           <div class="pokemonHP">
+            <!-- <div class="pokemon2HP"></div> -->
             <div class="progress">
-              <div class="progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-                100/100 HP
+              <div class="pokemon2HP progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+
               </div>
             </div>
-            <span class="label label-warning">Paralyzed</span>
+            <span class="label" id="player2Status"></span>
           </div>
         </div>
       </div>
@@ -147,10 +150,10 @@
         </div>
         <div id="options col-sm-6">
           <div id="pokemonSprites">
-            <span id="pokemonOption1" class="attack" value="0"> <img src="http://www.pokestadium.com/sprites/xy/mew.gif"></span>
-            <span id="pokemonOption2" class="attack" value="1"> <img src="http://www.pokestadium.com/sprites/xy/jigglypuff.gif"></span>
-            <span id="pokemonOption3" class="attack" value="2"><img src="http://www.pokestadium.com/sprites/xy/abra.gif"></span>
-            <button id="startAttack" type="click" class="btn-success btn disabled">Forfeit!</button>
+            <span id="pokemonOption1" class="attack" val="0"> <img src="http://www.pokestadium.com/sprites/xy/mew.gif"></span>
+            <span id="pokemonOption2" class="attack" val="1"> <img src="http://www.pokestadium.com/sprites/xy/jigglypuff.gif"></span>
+            <span id="pokemonOption3" class="attack" val="2"><img src="http://www.pokestadium.com/sprites/xy/abra.gif"></span>
+            <button id="startAttack" type="click" class="btn-success btn">Ready!</button>
           </div>
         </div>
       </div>

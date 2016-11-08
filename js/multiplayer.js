@@ -122,7 +122,6 @@ $(function() {
 
      },
      callback: function(m) {
-
        if(Game.state=="Menu"){
          changeTurn(m.player);
          (turn==1) ? Player1.turn++ : Player2.turn++;
@@ -159,17 +158,55 @@ $(function() {
           // Game.attacks[m.player-1]={pokemonChange: m.pokemonChange};
         });
           eval("Player"+playerNumber).currentAction = "";
+
         Game.state="Done";
       }
     },
    });
 
 
-function displaySprite(index){
 
-  eval("Player"+playerNumber).currentPokemon = index;
-  $("#Player1Fighter").append("<img src='" + eval("Player"+playerNumber).pokemons[index].backSprite + "' width='150px'><br>");
-  $("#Player2Fighter").append("<img src='" + eval("Player"+mySign).pokemons[index].frontSprite + "' width='90px'><br>");
+function attack(attackName){
+  if(eval("Player"+playerNumber).currentAction !=="skip"){
+    var attacker= (Player1.isPlayerTurn) ? (Player1.pokemons[Player1.currentPokemon]) : (Player2.pokemons[Player2.currentPokemon])
+    var defender= (Player1.isPlayerTurn) ? (Player2.pokemons[Player2.currentPokemon]) : (Player1.pokemons[Player1.currentPokemon])
+    var damage = ((attacker.attack + eval(attackName).power) - defender.defense);
+    console.log("attacker is: "+attacker + " Defender is: "+ defender);
+    if(attacker.type == defender.weakAgainst){
+      damage *= 2;
+    } else if (attackName.type == defender.strongAgainst){
+      damage *= .5;
+    }
+    defender.hp -= damage;
+  }
+}
+
+function displaySprite(index1, index2){
+
+  eval("Player"+playerNumber).currentPokemon = index1;
+  $("#Player1Fighter").append("<img src='" + eval("Player"+playerNumber).pokemons[index1].backSprite + "' width='150px'><br>");
+  $("#Player2Fighter").append("<img src='" + eval("Player"+mySign).pokemons[index2].frontSprite + "' width='90px'><br>");
+
+  $("#Pokemon1Name").html(eval("Player"+playerNumber).pokemons[index1].name);
+  $("#Pokemon2Name").html(eval("Player"+mySign).pokemons[index1].name);
+
+  var hpToPercent = function(hp, maxHP) {
+    return (hp / maxHP) * 100;
+  }
+
+  hpToPercent()
+
+  // $(".pokemon1HP").html(eval("Player"+playerNumber).pokemons[index1].hp + " HP");
+  // $(".pokemon2HP").html(eval("Player"+mySign).pokemons[index1].hp + " HP");
+
+  $(".move1Name").html(eval("Player"+playerNumber).pokemons[index1].moves[0].name);
+  $(".move2Name").html(eval("Player"+playerNumber).pokemons[index1].moves[1].name);
+
+  $(".move1Description").html(eval("Player"+playerNumber).pokemons[index1].moves[0].description);
+  $(".move2Description").html(eval("Player"+playerNumber).pokemons[index1].moves[1].description);
+
+  $(".move1Power").html(eval("Player"+playerNumber).pokemons[index1].moves[0].power);
+  $(".move2Power").html(eval("Player"+playerNumber).pokemons[index1].moves[1].power);
 
 }
 

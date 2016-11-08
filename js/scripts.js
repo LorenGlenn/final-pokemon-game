@@ -280,6 +280,8 @@ var cubone = {
   strongAgainst: "Electric"
 }
 
+// Player1.pokemons[Player1.currentPokemon].moves[0].name
+
 var Player1 = {
   pokemons : [],
   turn:0,
