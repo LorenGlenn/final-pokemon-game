@@ -55,6 +55,12 @@ $(function() {
   $(".attack").click(function(){
     var battleTurn=1;
     var newPokemon;
+    if(playerNumber == 1){
+      Game.player1Attack = 0;
+    }
+    else if (playerNumber == 2){
+      Game.player2Attack = 0;
+    }
     $("#startAttack").removeClass("disabled");
     eval("Player"+playerNumber).currentAction = $(this).attr("value");
     if(parseInt(eval("Player"+playerNumber).currentAction)+1){
@@ -145,25 +151,25 @@ $(function() {
           }
         }
         console.log("Player: "+m.player + " changing pokemon to: " + m.pokemonChange + " damage: "+ m.damage + " statusEffect: "+ m.statusEffect);
-        (m.player===1) ? P1damage=m.damage : P2damage=m.damage;
-        if(!P1damage){
-          P1damage=0;
-        }
-        if(!P2damage){
-          P2damage=0;
-        }
-        Game.player1Attack=P1damage;
-        Game.player2Attack=P2damage;
 
         if(m.player===1 && m.pokemonChange+1) {
           Player1.currentPokemon = m.pokemonChange;
-          Game.player1Attack = 1;
+          Game.player1Attack = 99;
         }
 
-        if (m.player===2 && m.pokemonChange+1)
+        else if (m.player===2 && m.pokemonChange+1)
         {
           Player2.currentPokemon = m.pokemonChange;
-          Game.player2Attack = 1;
+          Game.player2Attack = 99;
+        }
+        else{
+          (m.player===1) ? P1damage=m.damage : P2damage=m.damage;
+          if(Game.player1Attack !== 99){
+          Game.player1Attack=P1damage;
+          }
+          if(Game.player2Attack !== 99){
+          Game.player2Attack=P2damage;
+          }
         }
         // console.log("new message1 player: "+ m.player +" pokemonIndex: "+ m.pokemonChange +" damage: "+ m.damage + " status: " +m.statusEffect + " battleTurn "+ m.battleTurn)
       if(m.GameStatus=="Attacking"){
@@ -204,6 +210,7 @@ $(function() {
         Game.state="Done";
       }
       if(m.reset=="Reset"){
+        console.log("!!!!!!RESETTING!!!!!!!"+playerNumber)
         Game.player1Attack= 0;
         Game.player2Attack= 0;
         P1damage=0;
