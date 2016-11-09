@@ -236,6 +236,7 @@ $(function() {
         }
         // displaySprite(eval("Player"+playerNumber).currentPokemon);
         attackHack++;
+        checkWin();
          Game.state="Reset";
       }
       if(Game.state=="Battle"){
@@ -265,32 +266,24 @@ $(function() {
     },
    });
 
-function checkLiving() {
-  console.log("hp1 "+Player1.pokemons[Player1.currentPokemon].hp + " hp2 "+ Player2.pokemons[Player2.currentPokemon].hp )
-  if(Player1.pokemons[Player1.currentPokemon].hp <= 0 ){
-    console.log("he dead: " + Player1.currentPokemon);
-    for(i=0;i<3;i++){
-      if(Player1.pokemons[i].hp>0){
-        Player1.currentPokemon=i;
-        console.log("looping through p1 "+ i)
-        break;
+function checkWin() {
+  deathCount = 0;
+  for(i=0;i<=2; i++) {
+    if(Player1.pokemons[i].hp <= 0){
+      deathCount++;
+      if(deathCount == 3){
+        console.log("P1 you lose :(")
       }
-      displaySprite(Player1.currentPokemon, Player2.currentPokemon);
-    };
-    console.log("p1 current pokemon: " +Player1.currentPokemon + "p2 current pokemon: "+ Player2.currentPokemon)
-  if(Player2.pokemons[Player2.currentPokemon].hp <= 0 ){
-    console.log("he dead: " + Player2.currentPokemon);
-    for(i=0;i<3;i++){
-      if(Player2.pokemons[i].hp>0){
-        console.log("looping through p2 "+ i)
-        Player2.currentPokemon=i;
-        break;
-      }
-      displaySprite(Player1.currentPokemon, Player2.currentPokemon);
-    };
-    console.log("p1 current pokemon: " +Player1.currentPokemon + "p2 current pokemon: "+ Player2.currentPokemon)
+    }
   }
-}
+  for (i=0;i<=2; i++) {
+    if(Player2.pokemons[i].hp <= 0){
+      deathCount++;
+      if(deathCount == 3){
+        console.log("P2 you lose :(")
+      }
+    }
+  }
 }
 
 function displaySprite(index1,index2){
