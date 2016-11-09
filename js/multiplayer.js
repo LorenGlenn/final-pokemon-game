@@ -192,22 +192,28 @@ $(function() {
       if(m.GameStatus=="Attacking"){
         if(attackHack==0){
           console.log("attacking on both screens")
-          // console.log("player next: "+ eval("Player"+playerNumber).nextPokemon+ " damage: "+eval("Player"+playerNumber).damageOutput)
+          console.log("player next: "+ eval("Player"+playerNumber).nextPokemon+ " damage: "+eval("Player"+playerNumber).damageOutput)
           if(eval("Player"+playerNumber).nextPokemon!==99 && eval("Player"+playerNumber).damageOutput<1){
             displaySprite(eval("Player"+playerNumber).nextPokemon,eval("Player"+mySign).nextPokemon);
           }
           else{
+            if(Player2.pokemons[Player2.currentPokemon].speed > Player1.pokemons[Player1.currentPokemon].speed){
+              Player1.pokemons[Player1.currentPokemon].hp -= Player2.damageOutput;
+              //check if dead
+              Player2.pokemons[Player2.currentPokemon].hp -= Player1.damageOutput;
+            }else {
+              Player2.pokemons[Player2.currentPokemon].hp -= Player1.damageOutput;
+              //check if dead
+              Player1.pokemons[Player1.currentPokemon].hp -= Player2.damageOutput;
+            }
             if(Player1.damageOutput>0){
               displaySprite(eval("Player"+playerNumber).nextPokemon,eval("Player"+mySign).nextPokemon);
-
             }
             if(Player2.damageOutput>0){
               displaySprite(eval("Player"+playerNumber).nextPokemon,eval("Player"+mySign).nextPokemon);
             }
+            //apply status
           }
-          // publishAttack(Player1)
-
-
         }
         // displaySprite(eval("Player"+playerNumber).currentPokemon);
         attackHack++;
