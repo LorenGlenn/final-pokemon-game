@@ -178,7 +178,6 @@ $(function() {
           rdy1=1;
         }
         else if (m.playerReady==2) {
-          console.log("p2 current pok " +Player2.currentPokemon)
           $("#p2status").removeClass("notReady");
           $("#p2status").addClass("ready");
           rdy2=1;
@@ -205,17 +204,37 @@ $(function() {
           else{
             if(Player2.pokemons[Player2.currentPokemon].speed > Player1.pokemons[Player1.currentPokemon].speed){
               Player1.pokemons[Player1.currentPokemon].hp -= Player2.damageOutput;
-              //check if dead
               Player2.pokemons[Player2.currentPokemon].hp -= Player1.damageOutput;
             }else {
               Player2.pokemons[Player2.currentPokemon].hp -= Player1.damageOutput;
-              //check if dead
               Player1.pokemons[Player1.currentPokemon].hp -= Player2.damageOutput;
             }
             if(Player1.damageOutput>0){
+              if(Player2.pokemons[Player2.currentPokemon].hp <= 0 ){
+                console.log("he dead p2: " + Player2.currentPokemon);
+                for(i=0;i<3;i++){
+                  if(Player2.pokemons[i].hp>0){
+                    Player2.nextPokemon=i;
+                    Player2.currentPokemon = i;
+                    console.log("looping through p1 "+ i)
+                    break;
+                  }
+                };
+              }
               displaySprite(eval("Player"+playerNumber).nextPokemon,eval("Player"+mySign).nextPokemon);
             }
             if(Player2.damageOutput>0){
+              if(Player1.pokemons[Player1.currentPokemon].hp <= 0 ){
+                console.log("he dead p1: " + Player1.currentPokemon);
+                for(i=0;i<3;i++){
+                  if(Player1.pokemons[i].hp>0){
+                    console.log("looping through p1 "+ i)
+                    Player1.nextPokemon=i;
+                    Player1.currentPokemon = i;
+                    break;
+                  }
+                };
+              }
               displaySprite(eval("Player"+playerNumber).nextPokemon,eval("Player"+mySign).nextPokemon);
             }
             //apply status
@@ -223,6 +242,7 @@ $(function() {
         }
         // displaySprite(eval("Player"+playerNumber).currentPokemon);
         attackHack++;
+        checkWin();
          Game.state="Reset";
       }
       if(Game.state=="Battle"){
@@ -252,6 +272,25 @@ $(function() {
     },
    });
 
+function checkWin() {
+  deathCount = 0;
+  for(i=0;i<=2; i++) {
+    if(Player1.pokemons[i].hp <= 0){
+      deathCount++;
+      if(deathCount == 3){
+        console.log("P1 you lose :(")
+      }
+    }
+  }
+  for (i=0;i<=2; i++) {
+    if(Player2.pokemons[i].hp <= 0){
+      deathCount++;
+      if(deathCount == 3){
+        console.log("P2 you lose :(")
+      }
+    }
+  }
+}
 
 function displaySprite(index1,index2){
   console.log("Trying to change the pokemoons! with index " + index1 + index2)
