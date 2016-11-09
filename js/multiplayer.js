@@ -2,9 +2,10 @@ var uuid = PUBNUB.uuid();
 var turn=2;
 var mySign = '2';
 var playerNumber='2';
-var battleTurn =1;
-var P1damage;
-var P2damage;
+var rdy1=0;
+var rdy2=0;
+var attackHack=0;
+
 function getGameId(){ //Generate game ID
     if(window.location.search.substring(1).split('?')[0].split('=')[0] !== 'id') {
       return null;
@@ -21,7 +22,7 @@ $(function() {
   var output = $('#output');
   var whosTurn = $('#whosTurn');
   var gameid = '';
-  var rand = (Math.random() * 9999).toFixed(0);
+  var rand = (Math.random() * 99).toFixed(0);
   gameid = (getGameId()) ? getGameId() : rand;
   $('#gameid').text(gameid);
   var channel = 'pokebattle--'+ gameid;
@@ -36,7 +37,9 @@ $(function() {
   $("#enterGameButton").click(function(event){
     if($("#inputGameId").val()){
       // var opponentUrl = 'http://LorenGlenn.github.io/final-pokemon-game/index.html?id=' + $("#inputGameId").val();
-      var opponentUrl = 'file:///Users/Guest/Desktop/final-pokemon-game/index.html?id=' + $("#inputGameId").val();
+      // var opponentUrl = 'file:///Users/Guest/Desktop/final-pokemon-game/index.html?id=' + $("#inputGameId").val();
+      var opponentUrl = 'file:///C:/Users/main/Desktop/pokebattle/index.html?id=' + $("#inputGameId").val();
+
       window.location.href=opponentUrl;
       return false;
     }
@@ -53,27 +56,22 @@ $(function() {
   });
 
   $(".attack").click(function(){
-    var battleTurn=1;
     var newPokemon;
-    if(playerNumber == 1){
-      Game.player1Attack = 0;
-    }
-    else if (playerNumber == 2){
-      Game.player2Attack = 0;
-    }
+    //classes stuff
+    $(".attack").removeClass("selection");
+    $(this).addClass("selection");
     $("#startAttack").removeClass("disabled");
+
     eval("Player"+playerNumber).currentAction = $(this).attr("value");
-    if(parseInt(eval("Player"+playerNumber).currentAction)+1){
+
+
+    if(parseInt(eval("Player"+playerNumber).currentAction)<3){
       newPokemon = parseInt(eval("Player"+playerNumber).currentAction);
-      eval("Player"+playerNumber).currentAction = "skip";
+      damage=0;
+      console.log("new pokemon will be index: "+newPokemon);
     }
-    else{ // get battleTurn
-      if(Player2.pokemons[Player2.currentPokemon].speed > Player1.pokemons[Player1.currentPokemon].speed){
-        battleTurn=2;
-      }else{
-        battleTurn=1;
-      }
-      if(eval("Player"+playerNumber).currentAction !=="skip"){  // get damage
+    else{
+        newPokemon=parseInt(eval("Player"+playerNumber).currentPokemon);
         var attacker= (Player1.isPlayerTurn) ? (Player1.pokemons[Player1.currentPokemon]) : (Player2.pokemons[Player2.currentPokemon])
         var defender= (Player1.isPlayerTurn) ? (Player2.pokemons[Player2.currentPokemon]) : (Player1.pokemons[Player1.currentPokemon])
         var damage = ((attacker.attack + eval(eval("Player"+playerNumber).currentAction).power) - defender.defense);
@@ -82,13 +80,19 @@ $(function() {
         } else if (attacker.type == defender.strongAgainst){
           damage *= .5;
         }
+        console.log("damage for: "+ playerNumber +" is "+ damage);
       }
-    }
     var tmpStatusEffect="Burn";
-    publishAttack(playerNumber, newPokemon, battleTurn, damage, tmpStatusEffect);
+    console.log("info::: "+ newPokemon + " :: "+ damage)
+    publishSelection(playerNumber, newPokemon, damage, tmpStatusEffect);
+  });
+  $("#startAttack").click(function(){
+    publishReady(playerNumber);
+    // console.log("p"+playerNumber+" newPokemon is: "+eval("Player"+playerNumber).nextPokemon + " damage is: "+eval("Player"+playerNumber).damageOutput );
   });
 
   pubnub.subscribe({
+
      channel: channel,
      connect: function(){console.log("connected")},
      presence: function(m) {
@@ -150,121 +154,126 @@ $(function() {
            }
           }
         }
-        console.log("Player: "+m.player + " changing pokemon to: " + m.pokemonChange + " damage: "+ m.damage + " statusEffect: "+ m.statusEffect);
 
-        if(m.player===1 && m.pokemonChange+1) {
-          Player1.currentPokemon = m.pokemonChange;
-          Game.player1Attack = 99;
+        //Storing variables with each click on attack name or pokemon
+        if(m.player==1 && m.pokemonChange<3){
+          Player1.nextPokemon=m.pokemonChange;
+          Player1.currentPokemon=Player1.nextPokemon;
+        }
+        if(m.player==1 && m.damage){
+          Player1.damageOutput=m.damage;
+        }
+        if(m.player==2 && m.pokemonChange<3){
+          Player2.nextPokemon=m.pokemonChange;
+          Player2.currentPokemon=Player2.nextPokemon;
+        }
+        if(m.player==2 && m.damage){
+          Player2.damageOutput=m.damage;
+        }
+        if(m.playerReady==1){
+
+          $("#p1status").removeClass("notReady");
+          $("#p1status").addClass("ready");
+          rdy1=1;
+        }
+        else if (m.playerReady==2) {
+          console.log("p2 current pok " +Player2.currentPokemon)
+          $("#p2status").removeClass("notReady");
+          $("#p2status").addClass("ready");
+          rdy2=1;
+        }
+        if(rdy1==1 && rdy2==1){
+          rdy1=0;
+          rdy2=0;
+          beginAttack()
+          attackHack=0;
         }
 
-        else if (m.player===2 && m.pokemonChange+1)
-        {
-          Player2.currentPokemon = m.pokemonChange;
-          Game.player2Attack = 99;
-        }
-        else{
-          (m.player===1) ? P1damage=m.damage : P2damage=m.damage;
-          if(Game.player1Attack !== 99){
-          Game.player1Attack=P1damage;
-          }
-          if(Game.player2Attack !== 99){
-          Game.player2Attack=P2damage;
-          }
-        }
-        // console.log("new message1 player: "+ m.player +" pokemonIndex: "+ m.pokemonChange +" damage: "+ m.damage + " status: " +m.statusEffect + " battleTurn "+ m.battleTurn)
       if(m.GameStatus=="Attacking"){
-        console.log("attacking on both screens")
-        console.log("hp3: "+Player1.pokemons[Player1.currentPokemon].hp)
-        if(eval("Player"+playerNumber).currentAction=="skip"){
-          displaySprite(eval("Player"+playerNumber).currentPokemon);
+        if(attackHack==0){
+          console.log("attacking on both screens")
+          // console.log("player next: "+ eval("Player"+playerNumber).nextPokemon+ " damage: "+eval("Player"+playerNumber).damageOutput)
+          if(eval("Player"+playerNumber).nextPokemon!==99 && eval("Player"+playerNumber).damageOutput<1){
+            displaySprite(eval("Player"+playerNumber).nextPokemon,eval("Player"+mySign).nextPokemon);
+          }
+          else{
+            if(Player1.damageOutput>0){
+              displaySprite(eval("Player"+playerNumber).nextPokemon,eval("Player"+mySign).nextPokemon);
+
+            }
+            if(Player2.damageOutput>0){
+              displaySprite(eval("Player"+playerNumber).nextPokemon,eval("Player"+mySign).nextPokemon);
+            }
+          }
+          // publishAttack(Player1)
+
+
         }
-        else if(Player2.pokemons[Player2.currentPokemon].speed > Player1.pokemons[Player1.currentPokemon].speed){
-          console.log("p1 hp: " +Player1.pokemons[Player1.currentPokemon].hp);
-          console.log("p2 attack: " +Game.player2Attack);
-          Player1.pokemons[Player1.currentPokemon].hp -= Game.player2Attack;
-          checkLiving();
-          Player2.pokemons[Player2.currentPokemon].hp -= Game.player1Attack;
-           checkLiving();
-          // playerWinCheck();
-        }else {
-          console.log("p2 hp: " +Player2.pokemons[Player2.currentPokemon].hp);
-          console.log("p1 attack: " +Game.player1Attack);
-          Player2.pokemons[Player2.currentPokemon].hp -= Game.player1Attack;
-          checkLiving();
-          Player1.pokemons[Player1.currentPokemon].hp -= Game.player2Attack;
-          checkLiving();
-          console.log("hp2: "+Player1.pokemons[Player1.currentPokemon].hp)
-          // pokemonDeathCheck();
-          // playerWinCheck();
-        }
-        //addstatus
-        publishReset();
+        // displaySprite(eval("Player"+playerNumber).currentPokemon);
+        attackHack++;
+         Game.state="Reset";
       }
       if(Game.state=="Battle"){
-        console.log("Test2"+eval("Player"+playerNumber).currentPokemon)
+        //Initialize battle
+        // change the active pokemons
         $("#pokemonOption1").html("<img src="+eval("Player"+playerNumber).pokemons[0].frontSprite+ ">")
         $("#pokemonOption2").html("<img src="+eval("Player"+playerNumber).pokemons[1].frontSprite+ ">")
         $("#pokemonOption3").html("<img src="+eval("Player"+playerNumber).pokemons[2].frontSprite+ ">")
-        displaySprite(0);
-        var roundBegin = false;
-        $("#startAttack").click(function(){
-          if(Game.player1Attack!== 0 && Game.player2Attack!== 0){
-            beginAttack();
-            console.log("Attacking!");
-
-
-
-
-
-
-          }
-
-        });
-          eval("Player"+playerNumber).currentAction = "";
-
+        displaySprite(0,0);
         Game.state="Done";
       }
-      if(m.reset=="Reset"){
-        console.log("!!!!!!RESETTING!!!!!!!"+playerNumber)
+      if(Game.state=="Reset"){
+        $(".attack").removeClass("selection");
+        $("#p1status").removeClass("ready");
+        $("#p2status").removeClass("ready");
+        $("#p1status").addClass("notReady");
+        $("#p2status").addClass("notReady");
+        console.log("!!!!!!RESETTING!!!!!!! "+playerNumber )
         Game.player1Attack= 0;
         Game.player2Attack= 0;
-        P1damage=0;
-        P2damage=0;
+        Game.state="Done";
+        Player1.nextPokemon=99;
+        Player1.damageOutput=0;
+        Player2.nextPokemon=99;
+        Player2.damageOutput=0;
       }
     },
    });
 
 
-function checkLiving(){
-  console.log("hp1: "+Player1.pokemons[Player1.currentPokemon].hp)
-  if (Player1.pokemons[Player1.currentPokemon].hp <= 0 || !Player1.pokemons[Player1.currentPokemon].hp) {
-    Player1.currentPokemon = Player1.pokemons.forEach(function(each){
-      if(each.hp > 0){
-        return each;
-      }
-    });
-  }
-  else if (Player2.pokemons[Player2.currentPokemon].hp <= 0) {
-    Player2.currentPokemon = Player2.pokemons.forEach(function(each){
-      if(each.hp > 0){
-        return each;
-      }
-    });
-  }
-}
+function displaySprite(index1,index2){
+  console.log("Trying to change the pokemoons! with index " + index1 + index2)
 
-function displaySprite(index1){
+  $(".attack").removeClass("disabled");
+  if(index1==0 && playerNumber==1){
+    $("#pokemonOption1").addClass("disabled")
+  }
+  else if (index1==1 && playerNumber==1) {
+    $("#pokemonOption2").addClass("disabled")
+  }
+  else if (index1==2 && playerNumber==1) {
+    $("#pokemonOption3").addClass("disabled")
+  }
+  if(index1==0 && playerNumber==2){
+    $("#pokemonOption1").addClass("disabled")
+  }
+  else if (index1==1 && playerNumber==2) {
+    $("#pokemonOption2").addClass("disabled")
+  }
+  else if (index1==2 && playerNumber==2) {
+    $("#pokemonOption3").addClass("disabled")
+  }
 
-  eval("Player"+playerNumber).currentPokemon = index1;
-  var index2 = eval("Player"+mySign).currentPokemon;
   $("#Player1Fighter").html("<img src='" + eval("Player"+playerNumber).pokemons[index1].backSprite + "' width='150px'><br>");
   $("#Player2Fighter").html("<img src='" + eval("Player"+mySign).pokemons[index2].frontSprite + "' width='90px'><br>");
 
   $("#Pokemon1Name").html(eval("Player"+playerNumber).pokemons[index1].name);
   $("#Pokemon2Name").html(eval("Player"+mySign).pokemons[index2].name);
 
-  $(".pokemon1HP").html(eval("Player"+playerNumber).pokemons[index1].hp + " HP");
-  $(".pokemon2HP").html(eval("Player"+mySign).pokemons[index2].hp + " HP");
+  $("#pk1MaxHp").html(eval(eval("Player"+playerNumber).pokemons[index1].name.toLowerCase()).hp);
+  $("#pk2MaxHp").html(eval(eval("Player"+mySign).pokemons[index2].name.toLowerCase()).hp);
+  $("#pk1Hp").html(eval("Player"+playerNumber).pokemons[index1].hp + " HP");
+  $("#pk2Hp").html(eval("Player"+mySign).pokemons[index2].hp + " HP");
 
   $(".move1Name").html(eval("Player"+playerNumber).pokemons[index1].moves[0].name);
   $("#move1").attr("value",eval("Player"+playerNumber).pokemons[index1].moves[0].name.toLowerCase().replace(" ",""));
@@ -284,7 +293,7 @@ function displaySprite(index1){
      channel: channel,
      message: {player: player, pokemon: pokemonChosen},
      callback: function(m){
-       console.log(m);
+      //  console.log(m);
      }
    });
   }
@@ -293,7 +302,7 @@ function displaySprite(index1){
       channel: channel,
       message: {GameStatus: "Attacking"},
       callback: function(m){
-        console.log(m);
+        // console.log(m);
       }
     });
    }
@@ -303,19 +312,28 @@ function displaySprite(index1){
      channel: channel,
      message: {reset:"Reset"},
      callback: function(m){
-       console.log(m);
+      //  console.log(m);
      }
    });
   }
-  function publishAttack(player,pokemonChange,battleTurn,damage,statusEffect) {
+  function publishSelection(playerNumber,pokemonChange,damage,statusEffect) {
     pubnub.publish({
       channel: channel,
-      message: {player: player, pokemonChange: pokemonChange, battleTurn: battleTurn, damage: damage, statusEffect: statusEffect},
+      message: {player: playerNumber, pokemonChange: pokemonChange, damage: damage, statusEffect: statusEffect},
       callback: function(m){
-        console.log(m);
+        // console.log(m);
       }
     });
    }
+   function publishReady(playerReady) {
+     pubnub.publish({
+       channel: channel,
+       message: {playerReady: playerReady},
+       callback: function(m){
+         // console.log(m);
+       }
+     });
+    }
   function set() {
     if (turn !== mySign) return;
     publishPosition(mySign,activePokemon);

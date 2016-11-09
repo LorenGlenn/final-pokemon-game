@@ -118,6 +118,9 @@
         </div>
         <div id="Player1nameHP">
           <span id="Pokemon1Name">Charmander</span><br>
+          MaxHP: <span id="pk1MaxHp"></span><br>
+          CurrentHp: <span id="pk1Hp"></span><br>
+          Status: <span id="pk1StatusHp"></span>
           <div class="pokemonHP">
             <!-- <div class="pokemon1HP"></div> -->
             <div class="progress">
@@ -130,6 +133,9 @@
         </div>
         <div id="Player2nameHP">
           <span id="Pokemon2Name">Squirtle</span><br>
+          MaxHP: <span id="pk2MaxHp"></span><br>
+          CurrentHp: <span id="pk2Hp"></span><br>
+          Status: <span id="pk2StatusHp"></span>
           <div class="pokemonHP">
             <!-- <div class="pokemon2HP"></div> -->
             <div class="progress">
@@ -156,12 +162,14 @@
         </div>
         <div id="options col-sm-6">
           <div id="pokemonSprites">
-            <span id="pokemonOption1" class="attack" value="0"> </span>
+            <span id="pokemonOption1" class="attack disabled" value="0"> </span>
             <span id="pokemonOption2" class="attack" value="1"> </span>
             <span id="pokemonOption3" class="attack" value="2"> </span>
-            <button id="startAttack" type="click" class="btn-success btn">Ready!</button>
+            <button id="startAttack" type="click" class="btn-success btn disabled">Ready!</button>
           </div>
         </div>
+        <div id="p1status" class="notReady">p1</div><br>
+        <div id="p2status" class="notReady">p2</div>
       </div>
     </div><!--Close Battle Container-->
     <div id="win">

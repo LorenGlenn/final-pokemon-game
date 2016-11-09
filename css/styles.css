@@ -385,3 +385,12 @@ top: 15%;
   font-size: 4em;
   text-shadow: 4px 4px 0px black;
 }
+.selection{
+  background-color: red !important;
+}
+.notReady{
+  background-color: red;
+}
+.ready{
+  background-color: green;
+}
