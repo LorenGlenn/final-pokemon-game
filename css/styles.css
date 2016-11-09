@@ -226,7 +226,7 @@ top: 15%;
 
 #Player2Fighter {
   position: absolute;
-  top: 270px;
+  top: 250px;
   right: 100px;
 }
 
@@ -282,21 +282,31 @@ top: 15%;
 #pokemonSprites img {
   padding: 20px;
   border-radius: 100%;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   background-color: #123;
 }
 
 #pokemonSprites img:hover {
   background-color: #456;
-  border: 2px solid white;
+  border: 3px solid white;
   cursor: pointer;
+}
+
+#pokemonSprites .selection {
+  border: 0 !important;
+  background-color: #456;
+}
+
+.selection img{
+  border: 3px solid white;
+  background-color: #456 !important;
 }
 
 #Player1nameHP {
   position: absolute;
-  right: 50px;
-  bottom: 50px;
+  right: 100px;
+  bottom: 75px;
   width: 300px;
   height: 120px;
   border: 2px solid #000;
@@ -307,8 +317,8 @@ top: 15%;
 
 #Player2nameHP {
   position: absolute;
-  left: 50px;
-  top: 50px;
+  left: 130px;
+  top: 100px;
   width: 300px;
   height: 120px;
   border: 2px solid #000;
@@ -385,12 +395,62 @@ top: 15%;
   font-size: 4em;
   text-shadow: 4px 4px 0px black;
 }
+
 .selection{
-  background-color: red !important;
+  background-color: #345 !important;
+  border: 3px inset white !important;
 }
+
 .notReady{
-  background-color: red;
+  background-color: #DD5555;
 }
+
+#p1status {
+  position: absolute;
+  right: 50px;
+  bottom: 10px;
+  width: 30px;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid white;
+}
+
+#p2status {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 30px;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid white;
+}
+
 .ready{
-  background-color: green;
+  background-color: #55FF55;
+}
+
+#pokeBall {
+  z-index: 30;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  display: none;
+}
+
+#pokeTop {
+  position: absolute;
+  top: -1000px;
+  height: 50%;
+  width: 100%;
+}
+
+#pokeBottom {
+  position: absolute;
+  bottom: -1000px;
+  height: 50%;
+  width: 100%;
+  left: -1px;
 }

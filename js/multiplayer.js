@@ -87,6 +87,7 @@ $(function() {
     publishSelection(playerNumber, newPokemon, damage, tmpStatusEffect);
   });
   $("#startAttack").click(function(){
+
     publishReady(playerNumber);
     // console.log("p"+playerNumber+" newPokemon is: "+eval("Player"+playerNumber).nextPokemon + " damage is: "+eval("Player"+playerNumber).damageOutput );
   });
@@ -183,6 +184,11 @@ $(function() {
           rdy2=1;
         }
         if(rdy1==1 && rdy2==1){
+          console.log(eval("Player"+playerNumber).pokemons[eval("Player"+playerNumber).currentAction].name);
+          console.log(eval("Player"+playerNumber).currentAction);
+          console.log(eval("Player"+mySign).pokemons[eval("Player"+mySign).currentAction].name);
+          console.log(eval("Player"+mySign).currentAction);
+
           rdy1=0;
           rdy2=0;
           beginAttack()
@@ -278,8 +284,8 @@ function displaySprite(index1,index2){
 
   $("#pk1MaxHp").html(eval(eval("Player"+playerNumber).pokemons[index1].name.toLowerCase()).hp);
   $("#pk2MaxHp").html(eval(eval("Player"+mySign).pokemons[index2].name.toLowerCase()).hp);
-  $("#pk1Hp").html(eval("Player"+playerNumber).pokemons[index1].hp + " HP");
-  $("#pk2Hp").html(eval("Player"+mySign).pokemons[index2].hp + " HP");
+  $("#pk1Hp").html(eval("Player"+playerNumber).pokemons[index1].hp);
+  $("#pk2Hp").html(eval("Player"+mySign).pokemons[index2].hp);
 
   $(".move1Name").html(eval("Player"+playerNumber).pokemons[index1].moves[0].name);
   $("#move1").attr("value",eval("Player"+playerNumber).pokemons[index1].moves[0].name.toLowerCase().replace(" ",""));

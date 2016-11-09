@@ -105,7 +105,17 @@
       </div>
 
     </div>
-
+    <div id="pokeBall">
+      <img src="img/pokeball-top.png" alt="Pokeball top" id="pokeTop">
+      <img src="img/pokeball-bottom.png" alt="Pokeball top" id="pokeBottom">
+    </div>
+    <script type="text/javascript">
+    var screenChange = function() {
+      $("#pokeBall").show();
+      $("#pokeTop").animate({top: '0'}).delay(1000).animate({top: '-1000px'});
+      $("#pokeBottom").animate({bottom: '0'}).delay(1000).animate({bottom: '-1000px'});
+    }
+    </script>
     <!--Battle DIV-->
 
     <div id="battleContainer">
@@ -118,33 +128,30 @@
         </div>
         <div id="Player1nameHP">
           <span id="Pokemon1Name">Charmander</span><br>
-          MaxHP: <span id="pk1MaxHp"></span><br>
-          CurrentHp: <span id="pk1Hp"></span><br>
-          Status: <span id="pk1StatusHp"></span>
-          <div class="pokemonHP">
-            <!-- <div class="pokemon1HP"></div> -->
+          HP: <span id="pk1Hp"></span> / <span id="pk1MaxHp"></span><br>
+          Status: <span id="pk1StatusHp"></span><br>
+          <!-- <div class="pokemonHP">
+            <div class="pokemon1HP"></div>
             <div class="progress">
               <div class="pokemon1HP progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:70%">
 
               </div>
             </div>
+          </div> -->
             <span class="label" id="player1Status"></span>
-          </div>
         </div>
         <div id="Player2nameHP">
           <span id="Pokemon2Name">Squirtle</span><br>
-          MaxHP: <span id="pk2MaxHp"></span><br>
-          CurrentHp: <span id="pk2Hp"></span><br>
+          HP: <span id="pk2Hp"></span> / <span id="pk2MaxHp"></span><br>
           Status: <span id="pk2StatusHp"></span>
-          <div class="pokemonHP">
-            <!-- <div class="pokemon2HP"></div> -->
+          <!-- <div class="pokemonHP">
+            <div class="pokemon2HP"></div>
             <div class="progress">
               <div class="pokemon2HP progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-
               </div>
             </div>
-            <span class="label" id="player2Status"></span>
-          </div>
+          </div> -->
+          <span class="label" id="player2Status"></span>
         </div>
       </div>
       <div id="attackMenu">
@@ -168,8 +175,8 @@
             <button id="startAttack" type="click" class="btn-success btn disabled">Ready!</button>
           </div>
         </div>
-        <div id="p1status" class="notReady">p1</div><br>
-        <div id="p2status" class="notReady">p2</div>
+        <div id="p1status" class="notReady">P1</div><br>
+        <div id="p2status" class="notReady">P2</div>
       </div>
     </div><!--Close Battle Container-->
     <div id="win">
