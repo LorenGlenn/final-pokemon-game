@@ -45,13 +45,13 @@
 
       </div>
     </div>
-    <div id="gameInfo">
-      <h3>Game ID: <span id="gameid"></span></h3>
-      <h4>Status: <span id="whosTurn"></span></h4>
-      <h5>Player: <span id="player"></span></h5><br>
-    </div>
     <div id="container">
       <div id="pokeSelector">
+        <div id="gameInfo">
+          <h4>Game ID: <span id="gameid"></span></h4>
+          <h4>Player: <span id="player"></span></h4>
+          <h3><span id="whosTurn"></span></h3>
+        </div>
         <div id="leftSide">
           <img src="http://www.pokestadium.com/sprites/xy/bulbasaur.gif" class="icon" id="bulbasaur"><br>
           <img src="http://www.pokestadium.com/sprites/xy/charmander.gif" class="icon pushleft" id="charmander"><br>
@@ -129,21 +129,22 @@
         <div id="Player1nameHP">
           <span id="Pokemon1Name">Charmander</span><br>
           HP: <span id="pk1Hp"></span> / <span id="pk1MaxHp"></span><br>
-          Status: <span id="pk1StatusHp"></span><br>
-          <!-- <div class="pokemonHP">
-            <div class="pokemon1HP"></div>
+          <div class="pokemonHP">
             <div class="progress">
-              <div class="pokemon1HP progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:70%">
-
+              <div class="pokemon1HP progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
               </div>
             </div>
-          </div> -->
-            <span class="label" id="player1Status"></span>
+          </div>
         </div>
         <div id="Player2nameHP">
           <span id="Pokemon2Name">Squirtle</span><br>
           HP: <span id="pk2Hp"></span> / <span id="pk2MaxHp"></span><br>
-          Status: <span id="pk2StatusHp"></span>
+          <div class="pokemonHP">
+            <div class="progress">
+              <div class="pokemon2HP progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
+              </div>
+            </div>
+          </div>
           <!-- <div class="pokemonHP">
             <div class="pokemon2HP"></div>
             <div class="progress">

@@ -183,18 +183,23 @@ $(function() {
           rdy2=1;
         }
         if(rdy1==1 && rdy2==1){
-          console.log(eval("Player"+playerNumber).pokemons[eval("Player"+playerNumber).currentAction].name);
-          console.log(eval("Player"+playerNumber).currentAction);
-          console.log(eval("Player"+mySign).pokemons[eval("Player"+mySign).currentAction].name);
-          console.log(eval("Player"+mySign).currentAction);
+          // console.log(eval("Player"+playerNumber).pokemons[eval("Player"+playerNumber).currentAction].name);
+          // console.log(eval("Player"+playerNumber).currentAction);
+          // console.log(eval("Player"+mySign).pokemons[eval("Player"+mySign).currentAction].name);
+          // console.log(eval("Player"+mySign).currentAction);
 
           rdy1=0;
           rdy2=0;
           beginAttack()
           attackHack=0;
         }
-
-      if(m.GameStatus=="Attacking"){
+        if(m.loserPlayer==1){
+          (playerNumber==1) ? $("#lose").show():$("#win").show();
+        }
+        if(m.loserPlayer==2){
+          (playerNumber==2) ? $("#lose").show():$("#win").show();
+        }
+        if(m.GameStatus=="Attacking"){
         if(attackHack==0){
           console.log("attacking on both screens")
           console.log("player next: "+ eval("Player"+playerNumber).nextPokemon+ " damage: "+eval("Player"+playerNumber).damageOutput)
@@ -246,6 +251,9 @@ $(function() {
          Game.state="Reset";
       }
       if(Game.state=="Battle"){
+        $("#pokeBall").show();
+        $("#pokeTop").animate({top: '-1000px'}, 1500);
+        $("#pokeBottom").animate({bottom: '-1000px'}, 1500);
         //Initialize battle
         // change the active pokemons
         $("#pokemonOption1").html("<img src="+eval("Player"+playerNumber).pokemons[0].frontSprite+ ">")
@@ -279,6 +287,7 @@ function checkWin() {
       deathCount++;
       if(deathCount == 3){
         console.log("P1 you lose :(")
+        publishLoser("1");
       }
     }
   }
@@ -287,6 +296,7 @@ function checkWin() {
       deathCount++;
       if(deathCount == 3){
         console.log("P2 you lose :(")
+        publishLoser("2");
       }
     }
   }
@@ -325,6 +335,18 @@ function displaySprite(index1,index2){
   $("#pk2MaxHp").html(eval(eval("Player"+mySign).pokemons[index2].name.toLowerCase()).hp);
   $("#pk1Hp").html(eval("Player"+playerNumber).pokemons[index1].hp);
   $("#pk2Hp").html(eval("Player"+mySign).pokemons[index2].hp);
+  var hpPercent1= (eval("Player"+playerNumber).pokemons[index1].hp/(eval(eval("Player"+playerNumber).pokemons[index1].name.toLowerCase()).hp) * 100);
+
+  var hpPercent2= (eval("Player"+mySign).pokemons[index2].hp/(eval(eval("Player"+mySign).pokemons[index2].name.toLowerCase()).hp) * 100);
+
+  $(".pokemon1HP").attr("style", "width:" + hpPercent1 + "%");
+  $(".pokemon2HP").attr("style", "width:" + hpPercent2 + "%");
+
+  $(".pokemon1HP").attr("aria-valuenow", eval("Player"+playerNumber).pokemons[index1].hp);
+  $(".pokemon1HP").attr("aria-valuemax", eval(eval("Player"+playerNumber).pokemons[index1].name.toLowerCase()).hp);
+
+  $(".pokemon2HP").attr("aria-valuenow", eval("Player"+playerNumber).pokemons[index1].hp);
+  $(".pokemon2HP").attr("aria-valuemax", eval(eval("Player"+mySign).pokemons[index2].name.toLowerCase()).hp);
 
   $(".move1Name").html(eval("Player"+playerNumber).pokemons[index1].moves[0].name);
   $("#move1").attr("value",eval("Player"+playerNumber).pokemons[index1].moves[0].name.toLowerCase().replace(" ",""));
@@ -338,7 +360,15 @@ function displaySprite(index1,index2){
   $(".move2Power").html(eval("Player"+playerNumber).pokemons[index1].moves[1].power);
 
 }
-
+function publishLoser(loser) {
+  pubnub.publish({
+    channel: channel,
+    message: {loserPlayer: loser},
+    callback: function(m){
+     //  console.log(m);
+    }
+  });
+ }
  function publishPosition(player,pokemonChosen) {
    pubnub.publish({
      channel: channel,
@@ -415,6 +445,7 @@ function displaySprite(index1,index2){
 
     function checkReady(){
       if($('#battleReadyP1').hasClass("btn-success") && $('#battleReadyP2').hasClass("btn-success")) {
+        $("#gameInfo").hide();
         $('#container').hide();
         $("#battleContainer").show();
         Game.state="Battle";

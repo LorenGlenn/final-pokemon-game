@@ -41,14 +41,17 @@ li {
 
 #container {
   position: absolute;
-  left: 10%;
-  top: 200px;
+  left: 12%;
+  top: 5%;
 }
 
 #gameInfo {
   position: absolute;
-  left: 10px;
-  top: 10px;
+  left: 200px;
+  top: -20px;
+  z-index: 10;
+  width: 500px;
+  text-align: center;
 }
 
 #leftSide {
@@ -188,7 +191,7 @@ top: 15%;
   position: absolute;
   background-color: white;
   left: 0;
-  top: 200px;
+  top: 0;
   z-index: 20;
   height: 800px;
   width: 1200px;
@@ -438,18 +441,19 @@ top: 15%;
   left: 0;
   overflow: hidden;
   display: none;
+  pointer-events: none;
 }
 
 #pokeTop {
   position: absolute;
-  top: -1000px;
+  top: 0px;
   height: 50%;
   width: 100%;
 }
 
 #pokeBottom {
   position: absolute;
-  bottom: -1000px;
+  bottom: 0px;
   height: 50%;
   width: 100%;
   left: -1px;
