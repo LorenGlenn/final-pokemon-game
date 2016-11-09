@@ -177,7 +177,6 @@ $(function() {
           rdy1=1;
         }
         else if (m.playerReady==2) {
-          console.log("p2 current pok " +Player2.currentPokemon)
           $("#p2status").removeClass("notReady");
           $("#p2status").addClass("ready");
           rdy2=1;
@@ -199,17 +198,37 @@ $(function() {
           else{
             if(Player2.pokemons[Player2.currentPokemon].speed > Player1.pokemons[Player1.currentPokemon].speed){
               Player1.pokemons[Player1.currentPokemon].hp -= Player2.damageOutput;
-              //check if dead
               Player2.pokemons[Player2.currentPokemon].hp -= Player1.damageOutput;
             }else {
               Player2.pokemons[Player2.currentPokemon].hp -= Player1.damageOutput;
-              //check if dead
               Player1.pokemons[Player1.currentPokemon].hp -= Player2.damageOutput;
             }
             if(Player1.damageOutput>0){
+              if(Player2.pokemons[Player2.currentPokemon].hp <= 0 ){
+                console.log("he dead p2: " + Player2.currentPokemon);
+                for(i=0;i<3;i++){
+                  if(Player2.pokemons[i].hp>0){
+                    Player2.nextPokemon=i;
+                    Player2.currentPokemon = i;
+                    console.log("looping through p1 "+ i)
+                    break;
+                  }
+                };
+              }
               displaySprite(eval("Player"+playerNumber).nextPokemon,eval("Player"+mySign).nextPokemon);
             }
             if(Player2.damageOutput>0){
+              if(Player1.pokemons[Player1.currentPokemon].hp <= 0 ){
+                console.log("he dead p1: " + Player1.currentPokemon);
+                for(i=0;i<3;i++){
+                  if(Player1.pokemons[i].hp>0){
+                    console.log("looping through p1 "+ i)
+                    Player1.nextPokemon=i;
+                    Player1.currentPokemon = i;
+                    break;
+                  }
+                };
+              }
               displaySprite(eval("Player"+playerNumber).nextPokemon,eval("Player"+mySign).nextPokemon);
             }
             //apply status
@@ -246,6 +265,33 @@ $(function() {
     },
    });
 
+function checkLiving() {
+  console.log("hp1 "+Player1.pokemons[Player1.currentPokemon].hp + " hp2 "+ Player2.pokemons[Player2.currentPokemon].hp )
+  if(Player1.pokemons[Player1.currentPokemon].hp <= 0 ){
+    console.log("he dead: " + Player1.currentPokemon);
+    for(i=0;i<3;i++){
+      if(Player1.pokemons[i].hp>0){
+        Player1.currentPokemon=i;
+        console.log("looping through p1 "+ i)
+        break;
+      }
+      displaySprite(Player1.currentPokemon, Player2.currentPokemon);
+    };
+    console.log("p1 current pokemon: " +Player1.currentPokemon + "p2 current pokemon: "+ Player2.currentPokemon)
+  if(Player2.pokemons[Player2.currentPokemon].hp <= 0 ){
+    console.log("he dead: " + Player2.currentPokemon);
+    for(i=0;i<3;i++){
+      if(Player2.pokemons[i].hp>0){
+        console.log("looping through p2 "+ i)
+        Player2.currentPokemon=i;
+        break;
+      }
+      displaySprite(Player1.currentPokemon, Player2.currentPokemon);
+    };
+    console.log("p1 current pokemon: " +Player1.currentPokemon + "p2 current pokemon: "+ Player2.currentPokemon)
+  }
+}
+}
 
 function displaySprite(index1,index2){
   console.log("Trying to change the pokemoons! with index " + index1 + index2)
