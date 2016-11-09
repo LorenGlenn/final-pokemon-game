@@ -84,7 +84,7 @@ $(function() {
       }
     var tmpStatusEffect="Burn";
     console.log("info::: "+ newPokemon + " :: "+ damage)
-    publishSelection(playerNumber, newPokemon, damage, tmpStatusEffect);
+    publishSelection(playerNumber, newPokemon, damage, tmpStatusEffect, eval("Player"+playerNumber).currentAction);
   });
   $("#startAttack").click(function(){
 
@@ -160,16 +160,20 @@ $(function() {
         if(m.player==1 && m.pokemonChange<3){
           Player1.nextPokemon=m.pokemonChange;
           Player1.currentPokemon=Player1.nextPokemon;
+          Player1.currentAction=m.action;
         }
         if(m.player==1 && m.damage){
+          Player1.currentAction=m.action;
           Player1.damageOutput=m.damage;
         }
         if(m.player==2 && m.pokemonChange<3){
           Player2.nextPokemon=m.pokemonChange;
           Player2.currentPokemon=Player2.nextPokemon;
+          Player2.currentAction=m.action;
         }
         if(m.player==2 && m.damage){
           Player2.damageOutput=m.damage;
+          Player2.currentAction=m.action;
         }
         if(m.playerReady==1){
 
@@ -182,12 +186,30 @@ $(function() {
           $("#p2status").addClass("ready");
           rdy2=1;
         }
-        if(rdy1==1 && rdy2==1){
-          // console.log(eval("Player"+playerNumber).pokemons[eval("Player"+playerNumber).currentAction].name);
-          // console.log(eval("Player"+playerNumber).currentAction);
-          // console.log(eval("Player"+mySign).pokemons[eval("Player"+mySign).currentAction].name);
-          // console.log(eval("Player"+mySign).currentAction);
 
+        if(rdy1==1 && rdy2==1){
+          // debugger;
+          // if(parseInt(eval("Player"+playerNumber).currentAction)<3){
+          //   $("#battleOutput").html("Player" + playerNumber+" switched to "+ eval("Player"+playerNumber).pokemons[eval("Player"+playerNumber).currentAction].name)
+          //   $("#battleOutput").fadeIn().delay(1100).fadeOut()
+          // }
+          // else{
+          //   $("#battleOutput").html(eval("Player"+playerNumber).pokemons[eval("Player"+playerNumber).currentPokemon].name + " used " + eval("Player"+playerNumber).currentAction)
+          //   $("#battleOutput").fadeIn().delay(1100).fadeOut()
+          // }
+
+          if(parseInt(eval("Player"+playerNumber).currentAction)<3){
+            $("#battleOutput1").html("Player" + playerNumber+" switched to "+ eval("Player"+playerNumber).pokemons[eval("Player"+playerNumber).currentAction].name)
+            $("#battleOutput1").fadeIn().delay(1500).fadeOut()
+            $("#battleOutput2").html("Player" + mySign+" switched to "+ eval("Player"+mySign).pokemons[eval("Player"+mySign).currentAction].name)
+            $("#battleOutput2").fadeIn().delay(1500).fadeOut()
+          }
+          else{
+            $("#battleOutput1").html(eval("Player"+playerNumber).pokemons[eval("Player"+playerNumber).currentPokemon].name + " used " + eval("Player"+playerNumber).currentAction)
+            $("#battleOutput1").fadeIn().delay(1500).fadeOut()
+            $("#battleOutput2").html(eval("Player"+mySign).pokemons[eval("Player"+mySign).currentPokemon].name + " used " + eval("Player"+mySign).currentAction)
+            $("#battleOutput2").fadeIn().delay(1500).fadeOut()
+          }
           rdy1=0;
           rdy2=0;
           beginAttack()
@@ -397,10 +419,10 @@ function publishLoser(loser) {
      }
    });
   }
-  function publishSelection(playerNumber,pokemonChange,damage,statusEffect) {
+  function publishSelection(playerNumber,pokemonChange,damage,statusEffect, action) {
     pubnub.publish({
       channel: channel,
-      message: {player: playerNumber, pokemonChange: pokemonChange, damage: damage, statusEffect: statusEffect},
+      message: {player: playerNumber, pokemonChange: pokemonChange, damage: damage, statusEffect: statusEffect, action:action},
       callback: function(m){
         // console.log(m);
       }

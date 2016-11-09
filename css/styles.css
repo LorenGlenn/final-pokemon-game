@@ -211,7 +211,7 @@ top: 15%;
   position: absolute;
 }
 
-#battleOutput {
+#battleOutput1 {
   color: white;
   text-align: center;
   font-size: 3em;
@@ -220,7 +220,15 @@ top: 15%;
   display: none;
   z-index: 20;
 }
-
+#battleOutput2 {
+  color: white;
+  text-align: center;
+  font-size: 3em;
+  margin-top: 15%;
+  text-shadow: 2px 2px 2px black;
+  display: none;
+  z-index: 20;
+}
 #Player1Fighter {
   position: absolute;
   bottom: 20px;
