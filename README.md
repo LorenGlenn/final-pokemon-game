@@ -11,7 +11,7 @@
 * Both users go at the same time. Users can select from one of two moves or can switch pokemon on each turn.
 * The user selects their move or switches pokemon and then clicks the ready button. 
 * Once each user clicks teh ready button the battle is engaged and damage is done to each user's HP based on their attack, defense, and speed stats.
-* If a pokemon has 0 HP it is "dead" and the user's net pokemon will be the active Pokemon. 
+* If a pokemon has 0 HP it is "dead" and the user's next pokemon will be the active Pokemon. 
 * IF a user loses all 3 pokemon the game is over
 
 
