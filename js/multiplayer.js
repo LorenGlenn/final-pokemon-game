@@ -131,6 +131,7 @@ $(function() {
             });
 
             $("#whosTurn").text('Waiting for your opponent...');
+            $("#pokeSelector").addClass("disabled");
           } else if(m.occupancy === 2) {
             mySign = '1';
           } else if (m.occupancy > 2) {
@@ -246,7 +247,7 @@ $(function() {
         if(m.loserPlayer==1){
           (playerNumber==1) ? $("#lose").show():$("#win").show();
         }
-        if(m.loserPlayer==2){
+        else if(m.loserPlayer==2){
           (playerNumber==2) ? $("#lose").show():$("#win").show();
         }
         if(m.GameStatus=="Attacking"){
@@ -270,7 +271,7 @@ $(function() {
             updateHealths();
             if(Player1.damageOutput>0){
               if(Player2.pokemons[Player2.currentPokemon].hp <= 0 ){
-                (playerNumber==2) ? $("#pokemonOption" + (Player2.currentPokemon +1)).addClass("dead"): console.log("test");
+                (playerNumber==2) ? $("#pokemonOption" + (Player2.currentPokemon +1) + " img").addClass("dead"): console.log("test");
                 console.log("he dead p2: " + Player2.currentPokemon);
                 for(i=0;i<3;i++){
                   if(Player2.pokemons[i].hp>0){
@@ -285,7 +286,7 @@ $(function() {
             }
             if(Player2.damageOutput>0){
               if(Player1.pokemons[Player1.currentPokemon].hp <= 0 ){
-                (playerNumber==1) ? $("#pokemonOption" + (Player1.currentPokemon +1)).addClass("dead"): console.log("test");
+                (playerNumber==1) ? $("#pokemonOption" + (Player1.currentPokemon +1) + " img").addClass("dead"): console.log("test");
                 console.log("he dead p1: " + Player1.currentPokemon);
                 for(i=0;i<3;i++){
                   if(Player1.pokemons[i].hp>0){
