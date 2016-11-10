@@ -289,7 +289,9 @@ var Player1 = {
   currentPokemon: 0,
   nextPokemon:99,
   currentAction: 0,
-  damageOutput:0
+  damageOutput:0,
+  status:"",
+  statusTurns:0
 }
 
 var Player2 = {
@@ -299,7 +301,9 @@ var Player2 = {
   currentPokemon: 0,
   nextPokemon:99,
   currentAction: 0,
-  damageOutput:0
+  damageOutput:0,
+  status:"",
+  statusTurns:0
 }
 var Game = {
   currentTurn:-1,

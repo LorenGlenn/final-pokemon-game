@@ -8,6 +8,36 @@ var attackHack=0;
 var health1=[0,0,0];
 var health2=[0,0,0];
 
+function megaDrain(player,damage){
+  eval("Player"+player).pokemons[eval("Player"+player).currentPokemon].hp+=damage*2;
+  eval("Player"+player).status="MegaDrain"
+  eval("Player"+player).statusTurns=1;
+}
+
+function clear(player){
+  eval("Player"+player).status=""
+}
+function ember(player,damage){
+  eval("Player"+player).pokemons[eval("Player"+player).currentPokemon].hp-=damage*.1;
+  eval("Player"+player).status="Ember"
+  eval("Player"+player).statusTurns=4;
+}
+function sleep(player){
+  eval("Player"+player).status="Sleep"
+  eval("Player"+player).statusTurns=4;
+}
+function barrier(player){
+  eval("Player"+player).pokemons[eval("Player"+player).currentPokemon].defense*=2;
+  eval("Player"+player).status="Barrier"
+  eval("Player"+player).statusTurns=2;
+}
+function closeCombat(player,damage){
+  eval("Player"+player).pokemons[eval("Player"+player).currentPokemon].hp-=damage*.3;
+  eval("Player"+player).status="Close Combat"
+  eval("Player"+player).statusTurns=1;
+}
+
+
 function getGameId(){ //Generate game ID
     if(window.location.search.substring(1).split('?')[0].split('=')[0] !== 'id') {
       return null;
@@ -17,10 +47,7 @@ function getGameId(){ //Generate game ID
   }
 
 function updateHealths(){
-  console.log("pre "+health1,health2);
   for(i=0;i<3;i++){
-    console.log("p1: pokemon " + i + " hp: " + Player1.pokemons[i].hp);
-    console.log("p2: pokemon " + i + " hp: " + Player2.pokemons[i].hp);
     if(Player1.pokemons[i].hp<health1[i]){
       health1[i]=Player1.pokemons[i].hp;
       Player1.pokemons[i].hp=health1[i];
@@ -34,8 +61,6 @@ function updateHealths(){
       Player2.pokemons[i].hp=health2[i];
     }
   }
-
-    console.log("post "+health1,health2);
 }
 $(function() {
 // Initialize variables
@@ -91,7 +116,6 @@ $(function() {
     if(parseInt(eval("Player"+playerNumber).currentAction)<3){
       newPokemon = parseInt(eval("Player"+playerNumber).currentAction);
       damage=0;
-      console.log("new pokemon will be index: "+newPokemon);
     }
     else{
         newPokemon=parseInt(eval("Player"+playerNumber).currentPokemon);
@@ -103,7 +127,6 @@ $(function() {
         } else if (attacker.type == defender.strongAgainst){
           damage *= .5;
         }
-        console.log("damage for: "+ playerNumber +" is "+ damage);
       }
     var tmpStatusEffect="Burn";
     console.log("info::: "+ newPokemon + " :: "+ damage)
@@ -164,8 +187,8 @@ $(function() {
 
            (m.pokemon) ? eval("Player"+turn).pokemons.push(m.pokemon): console.log("got squat");
 
-           (Game.currentTurn>1 && turn==1) ? $("#selectedPokemonsP"+turn).append("<img src='" + eval(eval("Player"+turn).pokemons[Player1.turn-2]).frontSprite + "'>") : console.log("wont append the pokemon1");
-           (Game.currentTurn>1 && turn==2) ? $("#selectedPokemonsP"+turn).append("<img src='" + eval(eval("Player"+turn).pokemons[Player2.turn-2]).frontSprite + "'>") : console.log("wont append the pokemon2");
+           (Game.currentTurn>1 && turn==1) ? $("#selectedPokemonsP"+turn).append("<img src='" + eval(eval("Player"+turn).pokemons[Player1.turn-2]).frontSprite + "'>") : console.log("");
+           (Game.currentTurn>1 && turn==2) ? $("#selectedPokemonsP"+turn).append("<img src='" + eval(eval("Player"+turn).pokemons[Player2.turn-2]).frontSprite + "'>") : console.log("");
            if(Player1.pokemons.length == 3 ) {
              $("#battleReadyP1").removeClass("btn-primary");
              $("#battleReadyP1").addClass("btn-success");
@@ -212,8 +235,6 @@ $(function() {
         }
 
         if(rdy1==1 && rdy2==1){
-          console.log("Player1 currentAction"+ Player1.currentAction + "Player1 pokemons "+ Player1.pokemons[0])
-          console.log("Player2 currentAction"+ Player2.currentAction + "Player2 pokemons "+ Player2.pokemons[0])
 
           if(Player1.currentAction<3 && Player2.currentAction<3){
             $("#battleOutput1").html("Player 1 switched to "+ Player1.pokemons[Player1.currentAction].name)
@@ -259,6 +280,7 @@ $(function() {
           }
 
           else{
+            //debugger;
             if(Player2.pokemons[Player2.currentPokemon].speed > Player1.pokemons[Player1.currentPokemon].speed){
               Player1.pokemons[Player1.currentPokemon].hp -= Player2.damageOutput;
               checkWin();
@@ -277,7 +299,6 @@ $(function() {
                   if(Player2.pokemons[i].hp>0){
                     Player2.nextPokemon=i;
                     Player2.currentPokemon = i;
-                    console.log("looping through p1 "+ i)
                     break;
                   }
                 };
@@ -290,7 +311,6 @@ $(function() {
                 console.log("he dead p1: " + Player1.currentPokemon);
                 for(i=0;i<3;i++){
                   if(Player1.pokemons[i].hp>0){
-                    console.log("looping through p1 "+ i)
                     Player1.nextPokemon=i;
                     Player1.currentPokemon = i;
                     break;
@@ -299,7 +319,16 @@ $(function() {
               }
               displaySprite(eval("Player"+playerNumber).nextPokemon,eval("Player"+mySign).nextPokemon);
             }
-            //apply status
+
+            if(Player1.currentAction=="megadrain"){megaDrain(1,Player1.damageOutput);}
+            if(Player2.currentAction=="megadrain"){megaDrain(2,Player2.damageOutput);}
+            if(Player1.currentAction=="closecombat"){closeCombat(1,Player1.damageOutput);}
+            if(Player2.currentAction=="closecombat"){closeCombat(2,Player2.damageOutput);}
+
+
+              displaySprite(eval("Player"+playerNumber).nextPokemon,eval("Player"+mySign).nextPokemon);
+          //  updateHealths();
+
           }
         }
         // displaySprite(eval("Player"+playerNumber).currentPokemon);
@@ -339,6 +368,7 @@ $(function() {
         Player1.damageOutput=0;
         Player2.nextPokemon=99;
         Player2.damageOutput=0;
+
       }
     },
    });
@@ -367,7 +397,8 @@ function checkWin() {
 }
 
 function displaySprite(index1,index2){
-  console.log("Trying to change the pokemoons! with index " + index1 + index2)
+  // $("#player1Status").html(eval("Player"+playerNumber).status);
+  // $("#player2Status").html(eval("Player"+mySign).status);
 
   $(".attack").removeClass("disabled");
   if(index1==0 && playerNumber==1){
@@ -514,14 +545,12 @@ function publishLoser(loser) {
   function startNewGame(mySign){
     turn =1;
     console.log("Starting new game!")
-    console.log("My sign is: "+mySign)
     publishPosition(mySign);
   }
 
   function changeTurn(player) {
       Game.currentTurn++;
       turn = (turn === '1') ? '2' : '1';
-      console.log("changing turns, "+ turn);
       $("#whosTurn").text((turn === mySign) ? 'Your turn' : 'Your opponent\'s turn');
       (turn==mySign) ? $("#pokeSelector").removeClass("disabled") : $("#pokeSelector").addClass("disabled");
       $("#currentTurn").text(Game.currentTurn);
