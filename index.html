@@ -183,8 +183,8 @@
       </div>
     </div><!--Close Battle Container-->
     <div id="chat">
-
-
+      <div><input id=input placeholder="Enter Chat and press enter" /></div>
+      <div id=box></div>
     </div>
     <div id="win">
       <p>You win! You are a Pok&eacute;mon master!</p>
@@ -206,5 +206,22 @@
     <!-- <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.2.4.min.js"></script> -->
     <script src="http://cdn.pubnub.com/pubnub-3.16.4.min.js"></script>
     <script src="js/multiplayer.js"></script>
+
+    <script src=https://cdn.pubnub.com/sdk/javascript/pubnub.4.0.11.min.js></script>
+    <script>(function(){
+          var pubnub = new PubNub({ publishKey : 'pub-c-943a6772-fe6e-435b-a3d1-78ad3ddd1d65', subscribeKey : 'sub-c-ffc4b4e4-a451-11e6-9fcd-0619f8945a4f' });
+          function $(id) { return document.getElementById(id); }
+          var box = $('box'), input = $('input'), channel = 'chat';
+          pubnub.addListener({
+              message: function(obj) {
+                  box.innerHTML = (''+obj.message).replace( /[<>]/g, '' ) + '<br>' + box.innerHTML
+              }});
+          pubnub.subscribe({channels:[channel]});
+          input.addEventListener('keyup', function(e) {
+              if ((e.keyCode || e.charCode) === 13) {
+                pubnub.publish({channel : channel,message : input.value,x : (input.value='')});
+            }
+          });
+    })();</script>
   </body>
 </html>
