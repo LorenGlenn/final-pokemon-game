@@ -402,7 +402,34 @@ function displaySprite(index1,index2){
   var hpPercent1= (eval("Player"+playerNumber).pokemons[index1].hp/(eval(eval("Player"+playerNumber).pokemons[index1].name.toLowerCase()).hp) * 100);
 
   var hpPercent2= (eval("Player"+mySign).pokemons[index2].hp/(eval(eval("Player"+mySign).pokemons[index2].name.toLowerCase()).hp) * 100);
+  console.log("!!!!!!!!!!!!!"+hpPercent1)
 
+  if(hpPercent1<50){
+    $(".pokemon1HP").removeClass("progress-bar-success")
+    $(".pokemon1HP").addClass("progress-bar-warning")
+  }
+  else{
+    $(".pokemon1HP").addClass("progress-bar-success")
+    $(".pokemon1HP").removeClass("progress-bar-warning")
+    $(".pokemon1HP").removeClass("progress-bar-danger")
+  }
+  if(hpPercent2<50){
+    $(".pokemon2HP").removeClass("progress-bar-success")
+    $(".pokemon2HP").addClass("progress-bar-warning")
+  }
+  else{
+    $(".pokemon2HP").addClass("progress-bar-success")
+    $(".pokemon2HP").removeClass("progress-bar-warning")
+    $(".pokemon2HP").removeClass("progress-bar-danger")
+  }
+  if(hpPercent1<20){
+    $(".pokemon1HP").removeClass("progress-bar-warning")
+    $(".pokemon1HP").addClass("progress-bar-danger")
+  }
+  if(hpPercent2<20){
+    $(".pokemon2HP").removeClass("progress-bar-warning")
+    $(".pokemon2HP").addClass("progress-bar-danger")
+  }
   $(".pokemon1HP").attr("style", "width:" + hpPercent1 + "%");
   $(".pokemon2HP").attr("style", "width:" + hpPercent2 + "%");
 
