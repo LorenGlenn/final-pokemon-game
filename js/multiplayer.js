@@ -5,6 +5,8 @@ var playerNumber='2';
 var rdy1=0;
 var rdy2=0;
 var attackHack=0;
+var health1=[0,0,0];
+var health2=[0,0,0];
 
 function getGameId(){ //Generate game ID
     if(window.location.search.substring(1).split('?')[0].split('=')[0] !== 'id') {
@@ -14,7 +16,27 @@ function getGameId(){ //Generate game ID
     }
   }
 
+function updateHealths(){
+  console.log("pre "+health1,health2);
+  for(i=0;i<3;i++){
+    console.log("p1: pokemon " + i + " hp: " + Player1.pokemons[i].hp);
+    console.log("p2: pokemon " + i + " hp: " + Player2.pokemons[i].hp);
+    if(Player1.pokemons[i].hp<health1[i]){
+      health1[i]=Player1.pokemons[i].hp;
+      Player1.pokemons[i].hp=health1[i];
+    }else{
+      Player1.pokemons[i].hp=health1[i];
+    }
+    if(Player2.pokemons[i].hp<health2[i]){
+      health2[i]=Player2.pokemons[i].hp;
+      Player2.pokemons[i].hp=health2[i];
+    }else{
+      Player2.pokemons[i].hp=health2[i];
+    }
+  }
 
+    console.log("post "+health1,health2);
+}
 $(function() {
 // Initialize variables
   var gameId =  $('#gameId');
@@ -37,7 +59,7 @@ $(function() {
   $("#enterGameButton").click(function(event){
     if($("#inputGameId").val()){
       // var opponentUrl = 'http://LorenGlenn.github.io/final-pokemon-game/index.html?id=' + $("#inputGameId").val();
-      var opponentUrl = 'file:///Users/Guest/Desktop/final-pokemon-game/index.html?id=' + $("#inputGameId").val();
+      // var opponentUrl = 'file:///Users/Guest/Desktop/final-pokemon-game/index.html?id=' + $("#inputGameId").val();
       // var opponentUrl = 'file:///C:/Users/main/Desktop/pokebattle/index.html?id=' + $("#inputGameId").val();
 
       window.location.href=opponentUrl;
@@ -189,27 +211,32 @@ $(function() {
         }
 
         if(rdy1==1 && rdy2==1){
-          // debugger;
-          // if(parseInt(eval("Player"+playerNumber).currentAction)<3){
-          //   $("#battleOutput").html("Player" + playerNumber+" switched to "+ eval("Player"+playerNumber).pokemons[eval("Player"+playerNumber).currentAction].name)
-          //   $("#battleOutput").fadeIn().delay(1100).fadeOut()
-          // }
-          // else{
-          //   $("#battleOutput").html(eval("Player"+playerNumber).pokemons[eval("Player"+playerNumber).currentPokemon].name + " used " + eval("Player"+playerNumber).currentAction)
-          //   $("#battleOutput").fadeIn().delay(1100).fadeOut()
-          // }
+          console.log("Player1 currentAction"+ Player1.currentAction + "Player1 pokemons "+ Player1.pokemons[0])
+          console.log("Player2 currentAction"+ Player2.currentAction + "Player2 pokemons "+ Player2.pokemons[0])
 
-          if(parseInt(eval("Player"+playerNumber).currentAction)<3){
-            $("#battleOutput1").html("Player" + playerNumber+" switched to "+ eval("Player"+playerNumber).pokemons[eval("Player"+playerNumber).currentAction].name)
-            $("#battleOutput1").fadeIn().delay(1500).fadeOut()
-            $("#battleOutput2").html("Player" + mySign+" switched to "+ eval("Player"+mySign).pokemons[eval("Player"+mySign).currentAction].name)
-            $("#battleOutput2").fadeIn().delay(1500).fadeOut()
+          if(Player1.currentAction<3 && Player2.currentAction<3){
+            $("#battleOutput1").html("Player 1 switched to "+ Player1.pokemons[Player1.currentAction].name)
+            $("#battleOutput1").fadeIn().delay(1500).fadeOut();
+            $("#battleOutput2").html("Player 2 switched to "+ Player2.pokemons[Player2.currentAction].name)
+            $("#battleOutput2").fadeIn().delay(1500).fadeOut();
           }
-          else{
-            $("#battleOutput1").html(eval("Player"+playerNumber).pokemons[eval("Player"+playerNumber).currentPokemon].name + " used " + eval("Player"+playerNumber).currentAction)
-            $("#battleOutput1").fadeIn().delay(1500).fadeOut()
-            $("#battleOutput2").html(eval("Player"+mySign).pokemons[eval("Player"+mySign).currentPokemon].name + " used " + eval("Player"+mySign).currentAction)
-            $("#battleOutput2").fadeIn().delay(1500).fadeOut()
+          if((Player1.currentAction<3) && !(Player2.currentAction<3)){
+            $("#battleOutput1").html("Player 1 switched to "+ Player1.pokemons[Player1.currentAction].name)
+            $("#battleOutput1").fadeIn().delay(1500).fadeOut();
+            $("#battleOutput2").html(Player2.pokemons[Player2.currentPokemon].name + " used " + Player2.currentAction);
+            $("#battleOutput2").fadeIn().delay(1500).fadeOut();
+          }
+          if(!(Player1.currentAction<3) && (Player2.currentAction<3)){
+            $("#battleOutput1").html(Player1.pokemons[Player1.currentPokemon].name + " used " + Player1.currentAction);
+            $("#battleOutput1").fadeIn().delay(1500).fadeOut();
+            $("#battleOutput2").html("Player 2 switched to "+ Player2.pokemons[Player2.currentAction].name)
+            $("#battleOutput2").fadeIn().delay(1500).fadeOut();
+          }
+          if(!(Player1.currentAction<3) && !(Player2.currentAction<3)){
+            $("#battleOutput1").html(Player1.pokemons[Player1.currentPokemon].name + " used " + Player1.currentAction);
+            $("#battleOutput1").fadeIn().delay(1500).fadeOut();
+            $("#battleOutput2").html(Player2.pokemons[Player2.currentPokemon].name + " used " + Player2.currentAction);
+            $("#battleOutput2").fadeIn().delay(1500).fadeOut();
           }
           rdy1=0;
           rdy2=0;
@@ -226,9 +253,10 @@ $(function() {
         if(attackHack==0){
           console.log("attacking on both screens")
           console.log("player next: "+ eval("Player"+playerNumber).nextPokemon+ " damage: "+eval("Player"+playerNumber).damageOutput)
-          if(eval("Player"+playerNumber).nextPokemon!==99 && eval("Player"+playerNumber).damageOutput<1){
+          if((Player1.nextPokemon!==99 && Player1.damageOutput<1) && (Player2.nextPokemon!==99 && Player2.damageOutput<1)){ //both switch
             displaySprite(eval("Player"+playerNumber).nextPokemon,eval("Player"+mySign).nextPokemon);
           }
+
           else{
             if(Player2.pokemons[Player2.currentPokemon].speed > Player1.pokemons[Player1.currentPokemon].speed){
               Player1.pokemons[Player1.currentPokemon].hp -= Player2.damageOutput;
@@ -239,6 +267,7 @@ $(function() {
               checkWin();
               Player1.pokemons[Player1.currentPokemon].hp -= Player2.damageOutput;
             }
+            updateHealths();
             if(Player1.damageOutput>0){
               if(Player2.pokemons[Player2.currentPokemon].hp <= 0 ){
                 (playerNumber==2) ? $("#pokemonOption" + (Player2.currentPokemon +1)).addClass("dead"): console.log("test");
@@ -287,10 +316,15 @@ $(function() {
         $("#pokemonOption1").html("<img src="+eval("Player"+playerNumber).pokemons[0].frontSprite+ ">")
         $("#pokemonOption2").html("<img src="+eval("Player"+playerNumber).pokemons[1].frontSprite+ ">")
         $("#pokemonOption3").html("<img src="+eval("Player"+playerNumber).pokemons[2].frontSprite+ ">")
+        for(i=0;i<3;i++){
+          health1[i]=Player1.pokemons[i].hp;
+          health2[i]=Player2.pokemons[i].hp;
+        }
         displaySprite(0,0);
         Game.state="Done";
       }
       if(Game.state=="Reset"){
+        $("#startAttack").addClass("disabled");
         $(".attack").removeClass("selection");
         $("#p1status").removeClass("ready");
         $("#p2status").removeClass("ready");
