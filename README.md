@@ -6,7 +6,7 @@
 ## Description
 * A battle simulator featuring 10 pokemon characters.
 * A user will create a game and another user will log into this game through PubNub
-* Both users will select 3 pokemon characters. USers can only select a pokemon once and once the pokemon is selected the other user cannot select this pokemon.
+* Both users will select 3 pokemon characters. Users can only select a pokemon once and when the pokemon is selected the other user cannot select this pokemon.
 * Once all 3 pokemon are selected for each user the battle begins!
 * Both users go at the same time. Users can select from one of two moves or can switch pokemon on each turn.
 * The user selects their move or switches pokemon and then clicks the ready button. 
