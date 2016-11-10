@@ -28,6 +28,13 @@ li {
   color: #E5E500;
 }
 
+#hidingAudio {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
 #myModal h1 {
   color: #E5E500;
   font-family: "Freckle Face", cursive;
@@ -167,9 +174,18 @@ top: 15%;
   margin-top: 500px;
   text-align: center;
 }
+.notReadyButton {
+  pointer-events: none;
+  opacity: 0.5;
+}
 .disabled {
   pointer-events: none;
   opacity: 0.5;
+}
+.dead {
+  pointer-events: none;
+  opacity: 0.5;
+  background-color: red !important;
 }
 
 #buttons {

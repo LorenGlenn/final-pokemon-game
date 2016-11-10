@@ -315,7 +315,7 @@ var hideLoading = function() {
 $(function() {
   setTimeout(hideLoading, 3000);
 
-  activePokemon="cubone";
+  activePokemon="";
   var p1SelectedPokemons=0;
   var p2SelectedPokemons=0;
   $("#pokeSelector img").click(function(){
@@ -325,6 +325,7 @@ $(function() {
 
 
   $(".icon").click(function(){
+    (activePokemon) ? $("#addPokemon").removeClass("notReadyButton"): activePokemon = "";
     // console.log(activePokemon);
     // console.log(activePokemon.name);
     $("#activePokemon").html("<img src='" + activePokemon.frontSprite + "'>");

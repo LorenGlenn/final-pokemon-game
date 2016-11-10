@@ -50,9 +50,10 @@ $(function() {
 
   // add pokemons
   $("#addPokemon").click(function(){
+    $("#addPokemon").addClass("notReadyButton");
     $(("#"+activePokemon.name).toLowerCase()).addClass("disabled");
     set();
-
+    activePokemon = "";
   });
 
   $(".attack").click(function(){
@@ -72,11 +73,11 @@ $(function() {
     }
     else{
         newPokemon=parseInt(eval("Player"+playerNumber).currentPokemon);
-        var attacker= (Player1.isPlayerTurn) ? (Player1.pokemons[Player1.currentPokemon]) : (Player2.pokemons[Player2.currentPokemon])
-        var defender= (Player1.isPlayerTurn) ? (Player2.pokemons[Player2.currentPokemon]) : (Player1.pokemons[Player1.currentPokemon])
+        var attacker= (playerNumber == 1) ? (Player1.pokemons[Player1.currentPokemon]) : (Player2.pokemons[Player2.currentPokemon])
+        var defender= (playerNumber == 1) ? (Player2.pokemons[Player2.currentPokemon]) : (Player1.pokemons[Player1.currentPokemon])
         var damage = ((attacker.attack + eval(eval("Player"+playerNumber).currentAction).power) - defender.defense);
         if(attacker.type == defender.weakAgainst){
-          damage *= 2;
+          damage *= 1.5;
         } else if (attacker.type == defender.strongAgainst){
           damage *= .5;
         }
@@ -231,13 +232,16 @@ $(function() {
           else{
             if(Player2.pokemons[Player2.currentPokemon].speed > Player1.pokemons[Player1.currentPokemon].speed){
               Player1.pokemons[Player1.currentPokemon].hp -= Player2.damageOutput;
+              checkWin();
               Player2.pokemons[Player2.currentPokemon].hp -= Player1.damageOutput;
             }else {
               Player2.pokemons[Player2.currentPokemon].hp -= Player1.damageOutput;
+              checkWin();
               Player1.pokemons[Player1.currentPokemon].hp -= Player2.damageOutput;
             }
             if(Player1.damageOutput>0){
               if(Player2.pokemons[Player2.currentPokemon].hp <= 0 ){
+                (playerNumber==2) ? $("#pokemonOption" + (Player2.currentPokemon +1)).addClass("dead"): console.log("test");
                 console.log("he dead p2: " + Player2.currentPokemon);
                 for(i=0;i<3;i++){
                   if(Player2.pokemons[i].hp>0){
@@ -252,6 +256,7 @@ $(function() {
             }
             if(Player2.damageOutput>0){
               if(Player1.pokemons[Player1.currentPokemon].hp <= 0 ){
+                (playerNumber==1) ? $("#pokemonOption" + (Player1.currentPokemon +1)).addClass("dead"): console.log("test");
                 console.log("he dead p1: " + Player1.currentPokemon);
                 for(i=0;i<3;i++){
                   if(Player1.pokemons[i].hp>0){
@@ -273,6 +278,7 @@ $(function() {
          Game.state="Reset";
       }
       if(Game.state=="Battle"){
+        $("#hidingAudio").html("<audio autoplay> <source src='battlemusic.mp3' type='audio/mpeg' loop='loop'></audio>");
         $("#pokeBall").show();
         $("#pokeTop").animate({top: '-1000px'}, 1500);
         $("#pokeBottom").animate({bottom: '-1000px'}, 1500);
@@ -303,20 +309,21 @@ $(function() {
    });
 
 function checkWin() {
-  deathCount = 0;
+  var p1DeathCount = 0;
   for(i=0;i<=2; i++) {
     if(Player1.pokemons[i].hp <= 0){
-      deathCount++;
-      if(deathCount == 3){
+      p1DeathCount++;
+      if(p1DeathCount == 3){
         console.log("P1 you lose :(")
         publishLoser("1");
       }
     }
   }
+  var p2DeathCount = 0;
   for (i=0;i<=2; i++) {
     if(Player2.pokemons[i].hp <= 0){
-      deathCount++;
-      if(deathCount == 3){
+      p2DeathCount++;
+      if(p2DeathCount == 3){
         console.log("P2 you lose :(")
         publishLoser("2");
       }
