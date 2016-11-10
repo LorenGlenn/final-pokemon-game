@@ -482,3 +482,18 @@ top: 15%;
   width: 100%;
   left: -1px;
 }
+
+#chat {
+  position: absolute;
+  left: 50px;
+  top:850px;
+  z-index: 5;
+  height: 360px;
+  overflow: scroll;
+  width: 300px;
+}
+
+#chat input {
+  width: 90%;
+  height: 40px;
+}

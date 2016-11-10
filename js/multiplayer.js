@@ -69,7 +69,7 @@ $(function() {
   var output = $('#output');
   var whosTurn = $('#whosTurn');
   var gameid = '';
-  var rand = (Math.random() * 99).toFixed(0);
+  var rand = (Math.random() * 9999).toFixed(0);
   gameid = (getGameId()) ? getGameId() : rand;
   $('#gameid').text(gameid);
   var channel = 'pokebattle--'+ gameid;
@@ -83,8 +83,8 @@ $(function() {
   // Button action to go to opponent's url
   $("#enterGameButton").click(function(event){
     if($("#inputGameId").val()){
-      // var opponentUrl = 'http://LorenGlenn.github.io/final-pokemon-game/index.html?id=' + $("#inputGameId").val();
-      // var opponentUrl = 'file:///Users/Guest/Desktop/final-pokemon-game/index.html?id=' + $("#inputGameId").val();
+      var opponentUrl = 'http://LorenGlenn.github.io/final-pokemon-game/index.html?id=' + $("#inputGameId").val();
+      //  var opponentUrl = 'file:///Users/Guest/Desktop/final-pokemon-game/index.html?id=' + $("#inputGameId").val();
       // var opponentUrl = 'file:///C:/Users/main/Desktop/pokebattle/index.html?id=' + $("#inputGameId").val();
 
       window.location.href=opponentUrl;
