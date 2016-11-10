@@ -20,7 +20,7 @@
 * Clone this repository
 * Open a HTML file
 * Open web browser of choice
-* Visit the site here: https://LorenGlenn.github.io/final-pokemon-game/
+* Visit the site here: https://LorenGlenn.github.io/final-pokemon-game/index.html
 
 
 ## Technologies Used
